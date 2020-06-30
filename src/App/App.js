@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       movies : []
     }
+    const URL = {https://rancid-tomatillos.herokuapp.com/api/v2}
   }
 
   render(){
