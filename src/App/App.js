@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import LoginButton from '/Users/cwefso/turing/module3/projects/rancid-tomatillos/src/LoginButton/LoginButton.js'
+
 
 import './App.css';
 
@@ -14,6 +16,7 @@ class App extends Component {
     return(
       <main className= "App">
         <h1>Rancid Tomatillos</h1>
+        <LoginButton />
       </main>
     )
   }
