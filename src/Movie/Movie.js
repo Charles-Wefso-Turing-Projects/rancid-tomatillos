@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Movie = () => {
+const Movie = ({movie}) => {
   return(
     <section className= "movie">
-      Movie Card
+      <h3>{movie.title}</h3>
     </section>
   )
 }

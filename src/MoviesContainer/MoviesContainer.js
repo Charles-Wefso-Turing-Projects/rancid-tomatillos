@@ -3,7 +3,7 @@ import Movie from '/Users/cwefso/turing/module3/projects/rancid-tomatillos/src/M
 
 const MoviesContainer = ({movies}) => {
   const movieCards = movies.map(movie => (
-    <Movie {...movie} key = {movie.id} />
+    <Movie movie= {movie} key = {movie.id} />
   ))
 // method for iteration
 
