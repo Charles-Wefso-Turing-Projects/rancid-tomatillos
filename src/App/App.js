@@ -50,3 +50,12 @@ class App extends Component {
 
 
 export default App;
+
+
+// {
+//   "user": {
+//       "id": 57,
+//       "name": "Lucy",
+//       "email": "lucy@turing.io"
+//   }
+// }

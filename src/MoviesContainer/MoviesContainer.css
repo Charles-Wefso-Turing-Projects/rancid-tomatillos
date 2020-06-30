@@ -9,7 +9,6 @@
 
 .allMovies {
   background: #EAEAF4;
-  border: 1px red solid;
   display: grid;
   flex-grow: 3;
   font-size: 14px;
