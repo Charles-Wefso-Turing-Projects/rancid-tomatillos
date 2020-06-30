@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import LoginButton from '/Users/cwefso/turing/module3/projects/rancid-tomatillos/src/LoginButton/LoginButton.js'
-import MoviesContainer from '/Users/cwefso/turing/module3/projects/rancid-tomatillos/src/MoviesContainer/MoviesContainer.js'
+import LoginButton from '../LoginButton/LoginButton.js'
+import MoviesContainer from '../MoviesContainer/MoviesContainer.js'
 
 import './App.css';
 
@@ -50,3 +50,12 @@ class App extends Component {
 
 
 export default App;
+
+
+// {
+//   "user": {
+//       "id": 57,
+//       "name": "Lucy",
+//       "email": "lucy@turing.io"
+//   }
+// }

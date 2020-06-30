@@ -11,7 +11,6 @@ Commit Emojis:
 :bar_chart: new tests
 :camera_with_flash: adding screenshots
 :bento: Adding new assets or images
-
 :beetle: If it is a bug or issue fix, describe the issue that was fixed.
 
 
@@ -25,6 +24,7 @@ Note any questions or struggles as well.
 Please delete options that are not relevant.
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
+- [ ] Tests (non-breaking change which adds testing)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 
 ## Checklist:
