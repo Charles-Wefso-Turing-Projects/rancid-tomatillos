@@ -7,6 +7,9 @@ const MoviesContainer = () => {
   return(
     <section className= "allMovies">
       <Movie />
+      <Movie />
+      <Movie />
+      <Movie />
       {/* varibale for all the iterated movies */}
     </section>
   )
