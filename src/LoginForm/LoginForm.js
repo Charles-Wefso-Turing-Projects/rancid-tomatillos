@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
 class LoginForm extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
-      username : "",
+      email : "",
       password : ""
     }
   }
@@ -12,17 +12,30 @@ class LoginForm extends Component {
   handleChange = (e) => {
     const {name, value} = e.target
     this.setState({[name] : value})
-  } 
+  }
+  
+  resetForm = () => {
+    this.setState({
+      email: "",
+      password: ""
+    })
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.getUserData(this.state.email, this.state.password)
+    this.resetForm()
+  }
 
   render(){
-    const {username, password} = this.state
+    const {email, password} = this.state
     return(
-      <form>
+      <form onSubmit= {this.handleSubmit}>
         <input 
           type= "text"
-          name= "username"
-          value= {username}
-          placeholder= "username"
+          name= "email"
+          value= {email}
+          placeholder= "email"
           onChange= {this.handleChange}
         />
         <input 

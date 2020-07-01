@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import LoginButton from '../LoginButton/LoginButton.js'
 import MoviesContainer from '../MoviesContainer/MoviesContainer.js'
 import LoginForm from '../LoginForm/LoginForm.js'
@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       error: null,
       movies : [],
-      button : false
+      button : false,
+      loggedIn : false
     }
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2"
   }
@@ -34,6 +35,29 @@ class App extends Component {
     )
   }
 
+  getUserData = (loginEmail, loginPassword) => {
+    fetch(`${this.url}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email: loginEmail, password: loginPassword})
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log('Success:', data);
+      this.setState = {
+        loggedIn : true
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+    // console.log(result)
+    // console.log(loginEmail, loginPassword)
+    // console.log(typeof loginEmail, typeof loginPassword)
+    // this.setState({ movies: result.movies });
+
+
   triggerForm = () => {
     this.setState({
       button : true
@@ -47,14 +71,20 @@ class App extends Component {
   render(){
     const { error, movies, button } = this.state;
     if (error) {
-      return <section className= "error">Error: {error.message}</section>
+      return <section className= "error">The page did not load because: {error.message}</section>
     } else if (button === true) {
       return (
         <main className= "App">
         <h1>Login Page</h1>
-        <LoginForm />
+        <LoginForm getUserData= {this.getUserData}/>
         <button onClick= {this.refreshPage}>X</button>
         </main>
+      )
+    } else if (this.loggedIn === true) {
+      return (
+        <section className= "userPage">
+          Hey there user
+        </section>
       )
     } else {
       return (
@@ -71,11 +101,11 @@ class App extends Component {
 
 export default App;
 
-App.propTypes = {
-  movies : PropTypes.array,
-  button : PropTypes.bool,
-  error : PropTypes.oneOf([null].isRequired)
-}
+// App.propTypes = {
+//   movies : PropTypes.array,
+//   button : PropTypes.bool,
+//   error : PropTypes.oneOf([null].isRequired)
+// }
 
 
 // {
