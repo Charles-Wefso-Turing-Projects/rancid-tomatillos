@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LoginButton from '../LoginButton/LoginButton.js'
 import MoviesContainer from '../MoviesContainer/MoviesContainer.js'
+import LoginForm from '../LoginForm/LoginForm.js'
 
 import './App.css';
 
@@ -51,6 +52,7 @@ class App extends Component {
       return (
         <main className= "App">
         <h1>Login Page</h1>
+        <LoginForm />
         <button onClick= {this.refreshPage}>X</button>
         </main>
       )
@@ -74,6 +76,8 @@ App.propTypes = {
   button : PropTypes.bool,
   error : PropTypes.oneOf([null].isRequired)
 }
+
+
 // {
 //   "user": {
 //       "id": 57,
