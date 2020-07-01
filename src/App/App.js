@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import LoginButton from '../LoginButton/LoginButton.js'
 import MoviesContainer from '../MoviesContainer/MoviesContainer.js'
 
@@ -9,7 +10,8 @@ class App extends Component {
     super();
     this.state = {
       error: null,
-      movies : []
+      movies : [],
+      button : false
     }
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2"
   }
@@ -22,7 +24,6 @@ class App extends Component {
         this.setState({
           movies : result.movies
         })
-        console.log(this.state.movies)
       },
       (error) => {
         this.setState({
@@ -32,15 +33,32 @@ class App extends Component {
     )
   }
 
+  triggerForm = () => {
+    this.setState({
+      button : true
+    })
+  }
+
+  refreshPage = () => {
+    window.location.reload(false)
+  }
+
   render(){
-    const { error, movies } = this.state;
+    const { error, movies, button } = this.state;
     if (error) {
       return <section className= "error">Error: {error.message}</section>
+    } else if (button === true) {
+      return (
+        <main className= "App">
+        <h1>Login Page</h1>
+        <button onClick= {this.refreshPage}>X</button>
+        </main>
+      )
     } else {
       return (
         <main className= "App">
           <h1>Rancid Tomatillos</h1>
-          <LoginButton />
+          <LoginButton triggerForm= {this.triggerForm}/>
           <MoviesContainer movies= {movies}/>
         </main>
       )
@@ -51,7 +69,11 @@ class App extends Component {
 
 export default App;
 
-
+App.propTypes = {
+  movies : PropTypes.array,
+  button : PropTypes.bool,
+  error : PropTypes.oneOf([null].isRequired)
+}
 // {
 //   "user": {
 //       "id": 57,

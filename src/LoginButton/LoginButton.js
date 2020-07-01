@@ -1,9 +1,9 @@
 import React from 'react';
 
-const LoginButton = () => {
+const LoginButton = ({triggerForm}) => {
   return(
     <section className= "login-button">
-      <button>Login</button>
+      <button onClick= {triggerForm}>Login</button>
     </section>
   )
 }
