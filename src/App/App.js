@@ -35,7 +35,7 @@ class App extends Component {
   render(){
     const { error, movies } = this.state;
     if (error) {
-      return <div>Error: {error.message}</div>
+      return <section className= "error">Error: {error.message}</section>
     } else {
       return (
         <main className= "App">
