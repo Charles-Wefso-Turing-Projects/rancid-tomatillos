@@ -1,54 +1,68 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
 class LoginForm extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      email : "",
-      password : ""
-    }
+      email: "",
+      password: "",
+    };
   }
 
   handleChange = (e) => {
-    const {name, value} = e.target
-    this.setState({[name] : value})
-  }
-  
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
   resetForm = () => {
     this.setState({
       email: "",
-      password: ""
-    })
-  }
+      password: "",
+    });
+  };
 
   handleSubmit = (e) => {
-    e.preventDefault()
-    this.props.getUserData(this.state.email, this.state.password)
-    this.resetForm()
-  }
+    e.preventDefault();
+    this.props.getUserData(this.state.email, this.state.password);
+    this.resetForm();
+  };
 
-  render(){
-    const {email, password} = this.state
-    return(
-      <form onSubmit= {this.handleSubmit}>
-        <input 
-          type= "text"
-          name= "email"
-          value= {email}
-          placeholder= "email"
-          onChange= {this.handleChange}
-        />
-        <input 
-          type= "text"
-          name= "password"
-          value= {password}
-          placeholder= "password"
-          onChange= {this.handleChange}
-        />
-        <button>Submit</button>
-      </form>
-    )
+  render() {
+    const { email, password } = this.state;
+    return (
+      <main className="Login">
+        <h1>Login Page</h1>
+        <form >
+          <input
+            aria-label="enter-email-address"
+            type="text"
+            name="email"
+            value={email}
+            placeholder="email"
+            onChange={this.handleChange}
+          />
+          <input
+            aria-label="enter-password"
+            type="text"
+            name="password"
+            value={password}
+            placeholder="password"
+            onChange={this.handleChange}
+          />
+          <button onClick={this.handleSubmit} type="submit">Submit</button>
+        </form>
+        <button onClick={this.props.refreshPage}>X</button>
+      </main>
+    );
   }
 }
+
+{
+  /* <main className= "Login">
+          <h1>Login Page</h1>
+          <LoginForm getUserData= {this.getUserData}/>
+          {/* <button onClick= {this.refreshPage}>X</button> */
+}
+// </main> */}
 
 export default LoginForm;
