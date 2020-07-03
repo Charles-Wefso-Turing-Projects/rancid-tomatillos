@@ -46,12 +46,10 @@ class App extends Component {
       console.log('Success:', data);
     })
     .then(() => {
-      console.log(this.state)
       this.setState({
         button: false,
         loggedIn : true
       })
-      console.log(this.state)
     })
     .catch((error) => {
       console.error('Error:', error);
