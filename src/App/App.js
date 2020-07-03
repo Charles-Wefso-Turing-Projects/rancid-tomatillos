@@ -44,9 +44,14 @@ class App extends Component {
     .then(res => res.json())
     .then(data => {
       console.log('Success:', data);
-      this.setState = {
+    })
+    .then(() => {
+      console.log(this.state)
+      this.setState({
+        button: false,
         loggedIn : true
-      }
+      })
+      console.log(this.state)
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -69,22 +74,22 @@ class App extends Component {
   }
 
   render(){
-    const { error, movies, button } = this.state;
+    const { error, movies, button, loggedIn } = this.state;
     if (error) {
       return <section className= "error">The page did not load because: {error.message}</section>
-    } else if (button === true) {
+    }
+    if (button === true) {
       return (
-        <main className= "App">
-        <h1>Login Page</h1>
-        <LoginForm getUserData= {this.getUserData}/>
-        <button onClick= {this.refreshPage}>X</button>
+        <main className= "Login">
+          <h1>Login Page</h1>
+          <LoginForm getUserData= {this.getUserData}/>
+          <button onClick= {this.refreshPage}>X</button>
         </main>
       )
-    } else if (this.loggedIn === true) {
+    }
+    if (loggedIn === true) {
       return (
-        <section className= "userPage">
-          Hey there user
-        </section>
+          <h1>Hey there user</h1>
       )
     } else {
       return (
