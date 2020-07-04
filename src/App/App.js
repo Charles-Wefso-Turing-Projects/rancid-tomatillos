@@ -96,7 +96,7 @@ class App extends Component {
       );
     }
     if (loggedIn) {
-      return <LoggedInUser loggedInUserData={ loggedInUserData } movies={movies} triggerForm={this.triggerForm}/>;
+      return <LoggedInUser loggedInUserData={ loggedInUserData } movies={movies} refreshPage = { this.refreshPage }/>;
     } else {
       return (
         <main className="App">
