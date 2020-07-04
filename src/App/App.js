@@ -78,6 +78,11 @@ class App extends Component {
     window.location.reload(false);
   };
 
+  showMovie = (e) => {
+    const {id} = e.target;
+    console.log(id)
+  }
+
   render() {
     const { error, movies, button, loggedIn, loggedInUserData } = this.state;
     if (error) {
@@ -96,7 +101,7 @@ class App extends Component {
       );
     }
     if (loggedIn) {
-      return <LoggedInUser loggedInUserData={ loggedInUserData } movies={movies} refreshPage = { this.refreshPage }/>;
+      return <LoggedInUser loggedInUserData={ loggedInUserData } movies={movies} refreshPage = { this.refreshPage } showMovie={this.showMovie}/>;
     } else {
       return (
         <main className="App">

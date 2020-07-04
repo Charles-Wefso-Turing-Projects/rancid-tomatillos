@@ -2,9 +2,9 @@ import React from 'react';
 import Movie from '../Movie/Movie.js';
 import './MoviesContainer.css'
 
-const MoviesContainer = ({movies}) => {
+const MoviesContainer = ({movies, showMovie}) => {
   const movieCards = movies.map(movie => (
-    <Movie movie= {movie} key = {movie.id} />
+    <Movie movie= {movie} id = {movie.id} key = {movie.id} showMovie= {showMovie}/>
   ))
 // method for iteration
 
