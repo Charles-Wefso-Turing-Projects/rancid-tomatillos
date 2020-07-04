@@ -15,6 +15,7 @@ class App extends Component {
       movies: [],
       button: false,
       loggedIn: false,
+      loggedInUserData: {}
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
@@ -50,12 +51,11 @@ class App extends Component {
       return response.json();
     })
     .then((data) => {
-      console.log("Success:", data);
-    })
-    .then(() => {
+      console.log(data)
       this.setState({
         button: false,
         loggedIn: true,
+        loggedInUserData: {data}
       });
     })
     .catch((error) => {
@@ -79,7 +79,7 @@ class App extends Component {
   };
 
   render() {
-    const { error, movies, button, loggedIn } = this.state;
+    const { error, movies, button, loggedIn, loggedInUserData } = this.state;
     if (error) {
       return (
         <section className="error">
@@ -96,7 +96,7 @@ class App extends Component {
       );
     }
     if (loggedIn) {
-      return <LoggedInUser movies={movies} triggerForm={this.triggerForm}/>;
+      return <LoggedInUser loggedInUserData={ loggedInUserData } movies={movies} triggerForm={this.triggerForm}/>;
     } else {
       return (
         <main className="App">
