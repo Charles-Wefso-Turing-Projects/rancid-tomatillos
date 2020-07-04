@@ -78,11 +78,7 @@ class App extends Component {
     }
     if (button === true) {
       return (
-        // <main className= "Login">
-        //   <h1>Login Page</h1>
           <LoginForm getUserData= {this.getUserData} refreshPage = {this.refreshPage}/>
-          /* <button onClick= {this.refreshPage}>X</button> */
-        // </main>
       )
     }
     if (loggedIn === true) {
