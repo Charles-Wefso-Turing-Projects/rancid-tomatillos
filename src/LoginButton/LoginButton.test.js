@@ -3,7 +3,7 @@ import LoginButton from './LoginButton';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-describe('LoginForm', () => {
+describe('LoginButton', () => {
 
   it('Should render a Login button', () => {
     //Setup
