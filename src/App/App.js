@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import LoginButton from "../LoginButton/LoginButton.js";
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
+import LoggedInUser from "../LoggedInUser/LoggedInUser"
 
 import "./App.css";
 
@@ -94,8 +95,8 @@ class App extends Component {
         />
       );
     }
-    if (loggedIn === true) {
-      return <h1>Hey there user</h1>;
+    if (loggedIn) {
+      return <LoggedInUser movies={movies} triggerForm={this.triggerForm}/>;
     } else {
       return (
         <main className="App">
