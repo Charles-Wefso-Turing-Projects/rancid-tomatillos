@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import LoginButton from '../LoginButton/LoginButton';
-import MoviesContainer from '../MoviesContainer/MoviesContainer';
-import Movie from '../Movie/Movie'
-// import movies from '../testData'
+
 
 it('renders the App component without crashing', () => {
   const div = document.createElement('div');

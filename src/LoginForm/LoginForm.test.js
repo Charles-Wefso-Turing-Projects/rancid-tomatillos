@@ -4,9 +4,6 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 describe('LoginForm', () => {
-  it('Should be true', () => {
-    expect(true).toEqual(true);
-  })
 
   it('Should render a header, paragraph, and button', () => {
     //Setup
