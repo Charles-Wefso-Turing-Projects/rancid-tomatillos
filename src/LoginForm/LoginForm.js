@@ -32,7 +32,7 @@ class LoginForm extends Component {
     return (
       <main className="Login">
         <h1>Login Page</h1>
-        <form >
+        <form aria-label="login-form">
           <input
             aria-label="enter-email-address"
             type="text"
@@ -49,9 +49,9 @@ class LoginForm extends Component {
             placeholder="password"
             onChange={this.handleChange}
           />
-          <button onClick={this.handleSubmit} type="submit">Submit</button>
+          <button aria-label="submit" onClick={this.handleSubmit} type="submit">Submit</button>
         </form>
-        <button onClick={this.props.refreshPage}>X</button>
+        <button aria-label="close" onClick={this.props.refreshPage}>X</button>
       </main>
     );
   }

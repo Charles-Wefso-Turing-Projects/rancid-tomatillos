@@ -9,9 +9,8 @@ const MoviesContainer = ({movies}) => {
 // method for iteration
 
   return(
-    <section className= "allMovies">
+    <section aria-label= "all-movies" className= "allMovies">
       { movieCards }
-      {/* varibale for all the iterated movies */}
     </section>
   )
 }
