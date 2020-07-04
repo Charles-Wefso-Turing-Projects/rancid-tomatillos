@@ -43,7 +43,8 @@ class App extends Component {
     })
     .then((response) => {
       if (!response.ok) {
-        throw response.message;
+        console.log(response.statusText)
+        throw response.statusText;
       }
       return response.json();
     })
@@ -57,7 +58,8 @@ class App extends Component {
       });
     })
     .catch((error) => {
-      console.error("Error:", error);
+      console.log(error)
+      alert(`yo, this is wrong:  ${error}`)
     });
   };
   // console.log(result)
