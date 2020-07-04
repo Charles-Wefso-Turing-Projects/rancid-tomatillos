@@ -78,7 +78,7 @@ class App extends Component {
     window.location.reload(false);
   };
 
-  showMovie = (e) => {
+  showMovieDetailsPage = (e) => {
     const {id} = e.target;
     console.log(id)
   }
@@ -101,7 +101,11 @@ class App extends Component {
       );
     }
     if (loggedIn) {
-      return <LoggedInUser loggedInUserData={ loggedInUserData } movies={movies} refreshPage = { this.refreshPage } showMovie={this.showMovie}/>;
+      return <LoggedInUser 
+                loggedInUserData={ loggedInUserData } 
+                movies={movies} 
+                refreshPage = { this.refreshPage } 
+                showMovieDetailsPage={this.showMovieDetailsPage}/>;
     } else {
       return (
         <main className="App">
