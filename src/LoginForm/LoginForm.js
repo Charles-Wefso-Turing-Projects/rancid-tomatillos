@@ -57,12 +57,12 @@ class LoginForm extends Component {
   }
 }
 
-{
-  /* <main className= "Login">
-          <h1>Login Page</h1>
-          <LoginForm getUserData= {this.getUserData}/>
-          {/* <button onClick= {this.refreshPage}>X</button> */
-}
+// {
+//   /* <main className= "Login">
+//           <h1>Login Page</h1>
+//           <LoginForm getUserData= {this.getUserData}/>
+//           {/* <button onClick= {this.refreshPage}>X</button> */
+// }
 // </main> */}
 
 export default LoginForm;
