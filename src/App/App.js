@@ -15,7 +15,8 @@ class App extends Component {
       movies: [],
       button: false,
       loggedIn: false,
-      loggedInUserData: {}
+      loggedInUserData: {},
+      selectedMovie: {}
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
@@ -79,9 +80,19 @@ class App extends Component {
   };
 
   showMovieDetailsPage = (e) => {
-    const {id} = e.target;
-    console.log(id)
+    const {id} = e.target.closest(".movie");
+    fetch(`${this.url}/movies/${id}`)
+    .then((res) => res.json())
+    .then(
+      (data) => {
+        console.log(data)
+      })
+    .catch((error) => {
+      console.log(error)
+      alert(`yo, this is wrong:  ${error}`)
+    })
   }
+    
 
   render() {
     const { error, movies, button, loggedIn, loggedInUserData } = this.state;
