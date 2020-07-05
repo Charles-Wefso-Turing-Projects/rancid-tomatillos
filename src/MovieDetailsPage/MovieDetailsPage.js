@@ -1,15 +1,17 @@
 import React from 'react';
 import './MovieDetailsPage.css'
 
-const showMovieDetailsPage = ({}) => {
+const showMovieDetailsPage = ({movie}) => {
   return(
     <section className= "movie-details-page">
-
+      <p>{movie.title}</p>
+      
     </section>
   )
 }
 
-// // {"movie": {id: 1, 
+// // {"movie": 
+// {id: 1, 
 // title: "Movie Title", 
 // poster_path: "someURL", 
 // backdrop_path: "someURL", 

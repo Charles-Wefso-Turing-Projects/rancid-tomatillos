@@ -12,7 +12,8 @@ const Nav = ({triggerForm, loggedInUserData, refreshPage, loggedIn, user}) => {
   else {
     return(
       <section className= "nav-bar">
-      <h1>`Hello ${}`</h1>
+      <h1>`Hello `</h1>
+      {/* <button onClick= {refreshPage}>Home</button> */}
     </section>
     )
   }

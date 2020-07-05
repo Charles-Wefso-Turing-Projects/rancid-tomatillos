@@ -79,18 +79,7 @@ class App extends Component {
     window.location.reload(false);
   };
 
-  showMovieDetailsPage = (e) => {
-    const { id } = e.target.closest(".movie");
-    fetch(`${this.url}/movies/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(`yo, this is wrong:  ${error}`);
-      });
-  };
+ 
 
   render() {
     const {

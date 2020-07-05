@@ -1,46 +1,83 @@
-import React from "react";
+import React, { Component } from "react";
 import "./LoggedInUser.css";
 import Nav from "../Nav/Nav";
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-const LoggedInUser = ({
-  movies,
-  loggedInUserData,
-  refreshPage,
-  showMovieDetailsPage,
-  loggedIn,
-}) => {
-  const name = loggedInUserData.data.user.name;
-  return (
-    <Router>
-      <main className="LoggedInUserMainPage">
-        <Nav
-          loggedInUserData={loggedInUserData}
-          refreshPage={refreshPage}
-          loggedIn={loggedIn}
-        />
+class LoggedInUser extends Component {
+  constructor(
+    movies,
+    loggedInUserData,
+    refreshPage,
+    showMovieDetailsPage,
+    loggedIn
+  ) {
+    super(
+      movies,
+      loggedInUserData,
+      refreshPage,
+      showMovieDetailsPage,
+      loggedIn
+    );
+    this.state = {
+      selectedMovie: {},
+    };
+    console.log(movies);
+  }
 
-        <Switch />
-          <Route path="/" exact component={Home} />
-        <button aria-label="logoutButton" onClick={refreshPage}>
-          Logout
-        </button>
+  showMovieDetailsPage = (e) => {
+    const { id } = e.target.closest(".movie");
+    fetch(`${this.url}/movies/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          selectedMovie: data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(`yo, this is wrong:  ${error}`);
+      });
+  };
 
-        <MoviesContainer
-          movies={movies}
-          showMovieDetailsPage={showMovieDetailsPage}
-        />
-      </main>
-    </Router>
+  Home = () => (
+    <div>
+      <LoggedInUser />
+    </div>
   );
-};
 
-const Home = () => (
-  <div>
-    <LoggedInUser />
-  </div>
-)
+  // const name = loggedInUserData.data.user.name;
+  render() {
+    return (
+      <Router>
+        <main className="LoggedInUserMainPage">
+          <Nav
+            loggedInUserData={this.loggedInUserData}
+            refreshPage={this.refreshPage}
+            loggedIn={this.loggedIn}
+          />
+
+          <Switch />
+          <Route path="/" exact component={this.Home} />
+          <button aria-label="logoutButton" onClick={this.refreshPage}>
+            Logout
+          </button>
+          {/* we want to build into the movies as individual 
+        routed pages 
+        When we click on a movie page, we have to capture
+        all the movie detail as it renders*/}
+          <MoviesContainer
+            movies={this.movies}
+            showMovieDetailsPage={this.showMovieDetailsPage}
+          />
+        </main>
+      </Router>
+    );
+  }
+}
+
+export default LoggedInUser;
 
 // return (
 //   <Router>
@@ -57,5 +94,3 @@ const Home = () => (
 //     </div>
 //   </Router>
 // );
-
-export default LoggedInUser;
