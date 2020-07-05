@@ -2,8 +2,8 @@ import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
-import LoggedInUser from "../LoggedInUser/LoggedInUser"
-import Nav from "../Nav/Nav.js"
+import LoggedInUser from "../LoggedInUser/LoggedInUser";
+import Nav from "../Nav/Nav.js";
 
 import "./App.css";
 
@@ -16,7 +16,7 @@ class App extends Component {
       loginFormTriggered: false,
       loggedIn: false,
       loggedInUserData: {},
-      selectedMovie: {}
+      selectedMovie: {},
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
@@ -44,25 +44,25 @@ class App extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: loginEmail, password: loginPassword }),
     })
-    .then((response) => {
-      if (!response.ok) {
-        console.log(response.statusText)
-        throw response.statusText;
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data)
-      this.setState({
-        loginFormTriggered: false,
-        loggedIn: true,
-        loggedInUserData: {data}
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response.statusText);
+          throw response.statusText;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          loginFormTriggered: false,
+          loggedIn: true,
+          loggedInUserData: { data },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(`yo, this is wrong:  ${error}`);
       });
-    })
-    .catch((error) => {
-      console.log(error)
-      alert(`yo, this is wrong:  ${error}`)
-    });
   };
   // console.log(result)
   // console.log(loginEmail, loginPassword)
@@ -80,22 +80,26 @@ class App extends Component {
   };
 
   showMovieDetailsPage = (e) => {
-    const {id} = e.target.closest(".movie");
+    const { id } = e.target.closest(".movie");
     fetch(`${this.url}/movies/${id}`)
-    .then((res) => res.json())
-    .then(
-      (data) => {
-        console.log(data)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
       })
-    .catch((error) => {
-      console.log(error)
-      alert(`yo, this is wrong:  ${error}`)
-    })
-  }
-    
+      .catch((error) => {
+        console.log(error);
+        alert(`yo, this is wrong:  ${error}`);
+      });
+  };
 
   render() {
-    const { error, movies, loginFormTriggered, loggedIn, loggedInUserData } = this.state;
+    const {
+      error,
+      movies,
+      loginFormTriggered,
+      loggedIn,
+      loggedInUserData,
+    } = this.state;
     if (error) {
       return (
         <section className="error">
@@ -112,11 +116,15 @@ class App extends Component {
       );
     }
     if (loggedIn) {
-      return <LoggedInUser 
-                loggedInUserData={ loggedInUserData } 
-                movies={movies} 
-                refreshPage = { this.refreshPage } 
-                showMovieDetailsPage={this.showMovieDetailsPage}/>;
+      return (
+        <LoggedInUser
+          loggedIn={loggedIn}
+          loggedInUserData={loggedInUserData}
+          movies={movies}
+          refreshPage={this.refreshPage}
+          showMovieDetailsPage={this.showMovieDetailsPage}
+        />
+      );
     } else {
       return (
         <main className="App">

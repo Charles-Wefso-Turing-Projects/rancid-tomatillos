@@ -1,27 +1,53 @@
-import React from 'react'
-import './LoggedInUser.css'
+import React from "react";
+import "./LoggedInUser.css";
+import Nav from "../Nav/Nav";
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+const LoggedInUser = ({
+  movies,
+  loggedInUserData,
+  refreshPage,
+  showMovieDetailsPage,
+  loggedIn,
+}) => {
+  const name = loggedInUserData.data.user.name;
+  return (
+    <Router>
+      <main className="LoggedInUserMainPage">
+        <Nav
+          loggedInUserData={loggedInUserData}
+          refreshPage={refreshPage}
+          loggedIn={loggedIn}
+        />
 
-const LoggedInUser = ({movies, loggedInUserData, refreshPage, showMovieDetailsPage}) => {
-  const name = loggedInUserData.data.user.name
-  return(
-    <main className="LoggedInUserMainPage">
-      <h1>Hello { name }</h1>
-      <button aria-label="logoutButton" onClick={refreshPage}>Logout</button>
-      
-      <MoviesContainer movies={movies} showMovieDetailsPage= {showMovieDetailsPage}/>
-    </main>
-  )
-}
+        <Switch />
+          <Route path="/" exact component={Home} />
+        <button aria-label="logoutButton" onClick={refreshPage}>
+          Logout
+        </button>
+
+        <MoviesContainer
+          movies={movies}
+          showMovieDetailsPage={showMovieDetailsPage}
+        />
+      </main>
+    </Router>
+  );
+};
+
+const Home = () => (
+  <div>
+    <LoggedInUser />
+  </div>
+)
 
 // return (
 //   <Router>
 //     <div className="App">
 //       <Nav />
 //       <Switch>
-//         <Route path="/" exact component={Home}/>  
+//         <Route path="/" exact component={Home}/>
 //         {/* "/" means whatever your homepage is */}
 //         {/* Switch only renders the url that matches the path */}
 //         {/* exact -> good practice for home page only rendering when needed */}
@@ -32,4 +58,4 @@ const LoggedInUser = ({movies, loggedInUserData, refreshPage, showMovieDetailsPa
 //   </Router>
 // );
 
-export default LoggedInUser
+export default LoggedInUser;
