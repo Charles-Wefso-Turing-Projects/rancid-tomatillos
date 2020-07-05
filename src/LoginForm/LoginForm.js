@@ -51,7 +51,7 @@ class LoginForm extends Component {
           />
           <button aria-label="submit" onClick={this.handleSubmit} type="submit">Submit</button>
         </form>
-        <button aria-label="close" onClick={this.props.refreshPage}>X</button>
+        <button aria-label="close" onClick={this.props.refreshPage}>HOME</button>
       </main>
     );
   }

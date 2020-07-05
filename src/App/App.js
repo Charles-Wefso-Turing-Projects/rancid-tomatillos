@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 // import PropTypes from 'prop-types';
-import LoginButton from "../LoginButton/LoginButton.js";
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
 import LoggedInUser from "../LoggedInUser/LoggedInUser"
+import Nav from "../Nav/Nav.js"
 
 import "./App.css";
 
@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       error: null,
       movies: [],
-      button: false,
+      loginFormTriggered: false,
       loggedIn: false,
       loggedInUserData: {},
       selectedMovie: {}
@@ -54,7 +54,7 @@ class App extends Component {
     .then((data) => {
       console.log(data)
       this.setState({
-        button: false,
+        loginFormTriggered: false,
         loggedIn: true,
         loggedInUserData: {data}
       });
@@ -71,7 +71,7 @@ class App extends Component {
 
   triggerForm = () => {
     this.setState({
-      button: true,
+      loginFormTriggered: true,
     });
   };
 
@@ -95,7 +95,7 @@ class App extends Component {
     
 
   render() {
-    const { error, movies, button, loggedIn, loggedInUserData } = this.state;
+    const { error, movies, loginFormTriggered, loggedIn, loggedInUserData } = this.state;
     if (error) {
       return (
         <section className="error">
@@ -103,7 +103,7 @@ class App extends Component {
         </section>
       );
     }
-    if (button === true) {
+    if (loginFormTriggered) {
       return (
         <LoginForm
           getUserData={this.getUserData}
@@ -120,8 +120,7 @@ class App extends Component {
     } else {
       return (
         <main className="App">
-          <h1>Rancid Tomatillos</h1>
-          <LoginButton triggerForm={this.triggerForm} />
+          <Nav triggerForm={this.triggerForm} />
           <MoviesContainer movies={movies} />
         </main>
       );
