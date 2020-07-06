@@ -2,16 +2,22 @@ import React from 'react';
 import './MovieDetailsPage.css'
 
 const MovieDetailsPage = ({movie, resetMovie}) => {
-
+  // const divStyle = {
+  //   color: "white",
+  //   backgroundImage: 'url(' + movie.backdrop_path + ')',
+  //   height: 200px
+  // };
+  
     return(
-      <section className= "movie-details-page">
+      <section style={{backgroundImage: 'url(' + movie.backdrop_path + ')'}} className= "movie-details-page">
         <p>Title: {movie.title}</p>
+        {/* <img src={movie.backdrop_path} alt="backdrop" className="backdrop"/> */}
         <p>Overview: {movie.overview}</p>
         <p>Release Date: {movie.release_date}</p>
         <p>Average Rating: {movie.average_rating}</p>
         <p>Genre: {movie.genres.name}</p>
-        <p>Runtime{movie.runtime}</p>
-        <button onClick= {resetMovie}>X</button>
+        <p>Runtime{movie.runtime} minutes</p>
+        <button onClick= {resetMovie}>Home</button>
       </section>  
     )
 }
