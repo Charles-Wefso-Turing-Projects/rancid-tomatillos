@@ -79,21 +79,6 @@ class App extends Component {
     window.location.reload(false);
   };
 
-  showMovieDetailsPage = (e) => {
-    const {id} = e.target.closest(".movie");
-    fetch(`${this.url}/movies/${id}`)
-    .then((res) => res.json())
-    .then(
-      (data) => {
-        console.log(data)
-      })
-    .catch((error) => {
-      console.log(error)
-      alert(`yo, this is wrong:  ${error}`)
-    })
-  }
-    
-
   render() {
     const { error, movies, loginFormTriggered, loggedIn, loggedInUserData } = this.state;
     if (error) {
@@ -116,7 +101,7 @@ class App extends Component {
                 loggedInUserData={ loggedInUserData } 
                 movies={movies} 
                 refreshPage = { this.refreshPage } 
-                showMovieDetailsPage={this.showMovieDetailsPage}/>;
+            />;
     } else {
       return (
         <main className="App">

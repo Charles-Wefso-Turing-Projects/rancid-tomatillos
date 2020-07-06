@@ -1,12 +1,19 @@
 import React from 'react';
 import './MovieDetailsPage.css'
 
-const showMovieDetailsPage = ({}) => {
-  return(
-    <section className= "movie-details-page">
+const MovieDetailsPage = ({movie, resetMovie}) => {
 
-    </section>
-  )
+    return(
+      <section className= "movie-details-page">
+        <p>Title: {movie.title}</p>
+        <p>Overview: {movie.overview}</p>
+        <p>Release Date: {movie.release_date}</p>
+        <p>Average Rating: {movie.average_rating}</p>
+        <p>Genre: {movie.genres.name}</p>
+        <p>Runtime{movie.runtime}</p>
+        <button onClick= {resetMovie}>X</button>
+      </section>  
+    )
 }
 
 // // {"movie": {id: 1, 
@@ -22,4 +29,4 @@ const showMovieDetailsPage = ({}) => {
 // runtime:139, 
 // tagline: "Movie Tagline" }}
 
-export default showMovieDetailsPage
+export default MovieDetailsPage

@@ -1,9 +1,9 @@
 import React from 'react';
 import './Movie.css'
 
-const Movie = ({movie, showMovieDetailsPage, id}) => {
+const Movie = ({movie, setID, getMovieData, id}) => {
   return(
-    <section className= "movie" id={id} onClick= {showMovieDetailsPage} >
+    <section className= "movie" id={id} onClick= {setID}>
       <h2 >{movie.title} </h2>
       <img src={movie.poster_path} 
            alt="poster" 
