@@ -5,7 +5,7 @@ import LoginForm from "../LoginForm/LoginForm.js";
 import LoggedInUser from "../LoggedInUser/LoggedInUser"
 import Nav from "../Nav/Nav.js"
 import { callUserData, getAllMovies } from "../apiCalls"
-
+import { Switch, Route, NavLink } from 'react-router-dom'
 import "./App.css";
 
 class App extends Component {
@@ -14,7 +14,6 @@ class App extends Component {
     this.state = {
       error: null,
       movies: [],
-      loginFormTriggered: false,
       loggedIn: false,
       loggedInUserData: {},
       selectedMovie: {}
@@ -53,18 +52,13 @@ class App extends Component {
     });
   };
 
-  triggerForm = () => {
-    this.setState({
-      loginFormTriggered: true,
-    });
-  };
-
   refreshPage = () => {
     window.location.reload(false);
   };
 
   render() {
-    const { error, movies, loginFormTriggered, loggedIn, loggedInUserData } = this.state;
+    const { error, movies, loggedIn, loggedInUserData } = this.state;
+    // conditionally redirect to error
     if (error) {
       return (
         <section className="error">
@@ -72,28 +66,38 @@ class App extends Component {
         </section>
       );
     }
-    if (loginFormTriggered) {
-      return (
-        <LoginForm
-          getUserData={this.getUserData}
-          refreshPage={this.refreshPage}
-        />
-      );
-    }
+    // make this a <Link> to LoginForm
+      // if (loginFormTriggered) {
+      //   return (
+      //     <LoginForm
+
+      //     />
+      //   );
+      // }
+
+    // conditionally redirect to LoggedInUser
     if (loggedIn) {
       return <LoggedInUser 
                 loggedInUserData={ loggedInUserData } 
                 movies={movies} 
                 refreshPage = { this.refreshPage } 
             />;
-    } else {
-      return (
+    }
+    return (
         <main className="App">
-          <Nav triggerForm={this.triggerForm} />
-          <MoviesContainer movies={movies} />
+            <Route exact path="/" render= {(routeProps) => 
+              <section>
+                <Nav {...routeProps} loggedIn={ loggedIn }/>
+                <MoviesContainer {...routeProps} movies={movies} />
+              </section>
+            }/>
+            <Route exact path="/login" render= {(routeProps) => 
+              <LoginForm {...routeProps} getUserData={this.getUserData}/>}
+            />
         </main>
       );
-    }
+
+      
   }
 }
 
