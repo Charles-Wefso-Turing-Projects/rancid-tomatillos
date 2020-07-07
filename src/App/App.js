@@ -4,6 +4,7 @@ import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
 import LoggedInUser from "../LoggedInUser/LoggedInUser"
 import Nav from "../Nav/Nav.js"
+import { callUserData, getAllMovies } from "../apiCalls"
 
 import "./App.css";
 
@@ -18,12 +19,11 @@ class App extends Component {
       loggedInUserData: {},
       selectedMovie: {}
     };
-    this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
+    
   }
 
   componentDidMount() {
-    fetch(`${this.url}/movies`)
-      .then((res) => res.json())
+    getAllMovies()
       .then(
         (result) => {
           this.setState({
@@ -39,18 +39,7 @@ class App extends Component {
   }
 
   getUserData = (loginEmail, loginPassword) => {
-    fetch(`${this.url}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: loginEmail, password: loginPassword }),
-    })
-    .then((response) => {
-      if (!response.ok) {
-        console.log(response.statusText)
-        throw response.statusText;
-      }
-      return response.json();
-    })
+    callUserData(loginEmail, loginPassword)
     .then((data) => {
       console.log(data)
       this.setState({
@@ -60,14 +49,9 @@ class App extends Component {
       });
     })
     .catch((error) => {
-      console.log(error)
       alert(`yo, this is wrong:  ${error}`)
     });
   };
-  // console.log(result)
-  // console.log(loginEmail, loginPassword)
-  // console.log(typeof loginEmail, typeof loginPassword)
-  // this.setState({ movies: result.movies });
 
   triggerForm = () => {
     this.setState({

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import './LoggedInUser.css'
 import MoviesContainer from "../MoviesContainer/MoviesContainer";
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage"
-
+import { getSingleMovie } from "../apiCalls"
 
 class LoggedInUser extends Component{
   constructor(props){
@@ -25,8 +25,7 @@ class LoggedInUser extends Component{
   }
 
   getMovieData(id) {
-    fetch(`${this.url}/movies/${id}`)
-    .then((res) => res.json())
+    getSingleMovie(id)
     .then(
       (data) => {
         this.setState({
@@ -34,7 +33,6 @@ class LoggedInUser extends Component{
         })
       })
     .catch((error) => {
-      console.log(error)
       alert(`yo, this is wrong:  ${error}`)
     })
   }
