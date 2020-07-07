@@ -20,12 +20,16 @@ export const getAllMovies = () => {
   .then((res) => res.json())
 }
 
-export const getSingleMovie = (id) => {
+export const getMovie = (id) => {
   return fetch(`${url}/movies/${id}`)
-  .then((res) => {
-    if(res.ok) {
-      return res.json()
-    } else {
-      throw new Error("Something is amiss with the movie elves")
+  .then(
+    (response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Something is amiss with the movie elves");
+      }
     }
-  })}
+  );
+};
+

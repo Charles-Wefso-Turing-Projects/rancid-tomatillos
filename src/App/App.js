@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
 import LoggedInUser from "../LoggedInUser/LoggedInUser"
-import Nav from "../Nav/Nav.js"
 import { callUserData, getAllMovies } from "../apiCalls"
 import { Switch, Route, NavLink } from 'react-router-dom'
 import "./App.css";
@@ -40,11 +39,11 @@ class App extends Component {
   getUserData = (loginEmail, loginPassword) => {
     callUserData(loginEmail, loginPassword)
     .then((data) => {
-      console.log(data)
+      const {user} = data
       this.setState({
         loginFormTriggered: false,
         loggedIn: true,
-        loggedInUserData: {data}
+        loggedInUserData: { user }
       });
     })
     .catch((error) => {
@@ -83,13 +82,19 @@ class App extends Component {
                 refreshPage = { this.refreshPage } 
             />;
     }
+    
     return (
         <main className="App">
             <Route exact path="/" render= {(routeProps) => 
-              <section>
-                <Nav {...routeProps} loggedIn={ loggedIn }/>
+              <main>
+                <nav>
+                  <h2>Rancid Tomatillos</h2>
+                  <NavLink to="/login" className= "nav-bar">
+                    <h3>Login</h3>
+                  </NavLink>
+                </nav>
                 <MoviesContainer {...routeProps} movies={movies} />
-              </section>
+              </main>
             }/>
             <Route exact path="/login" render= {(routeProps) => 
               <LoginForm {...routeProps} getUserData={this.getUserData}/>}
