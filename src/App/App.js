@@ -2,9 +2,9 @@ import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
-import LoggedInUser from "../LoggedInUser/LoggedInUser"
-import Nav from "../Nav/Nav.js"
-import { callUserData, getAllMovies } from "../apiCalls"
+import LoggedInUser from "../LoggedInUser/LoggedInUser";
+import Nav from "../Nav/Nav.js";
+import { callUserData, getAllMovies } from "../apiCalls";
 
 import "./App.css";
 
@@ -17,40 +17,38 @@ class App extends Component {
       loginFormTriggered: false,
       loggedIn: false,
       loggedInUserData: {},
-      selectedMovie: {}
+      selectedMovie: {},
     };
-    
   }
 
   componentDidMount() {
-    getAllMovies()
-      .then(
-        (result) => {
-          this.setState({
-            movies: result.movies,
-          });
-        },
-        (error) => {
-          this.setState({
-            error,
-          });
-        }
-      );
+    getAllMovies().then(
+      (result) => {
+        this.setState({
+          movies: result.movies,
+        });
+      },
+      (error) => {
+        this.setState({
+          error,
+        });
+      }
+    );
   }
 
   getUserData = (loginEmail, loginPassword) => {
     callUserData(loginEmail, loginPassword)
-    .then((data) => {
-      console.log(data)
-      this.setState({
-        loginFormTriggered: false,
-        loggedIn: true,
-        loggedInUserData: {data}
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          loginFormTriggered: false,
+          loggedIn: true,
+          loggedInUserData: { data },
+        });
+      })
+      .catch((error) => {
+        alert(`yo, this is wrong:  ${error}`);
       });
-    })
-    .catch((error) => {
-      alert(`yo, this is wrong:  ${error}`)
-    });
   };
 
   triggerForm = () => {
@@ -64,7 +62,7 @@ class App extends Component {
   };
 
   render() {
-    const { error, movies, loginFormTriggered, loggedIn, loggedInUserData } = this.state;
+    const { error, movies, loginFormTriggered, loggedIn } = this.state;
     if (error) {
       return (
         <section className="error">
@@ -81,11 +79,13 @@ class App extends Component {
       );
     }
     if (loggedIn) {
-      return <LoggedInUser 
-                loggedInUserData={ loggedInUserData } 
-                movies={movies} 
-                refreshPage = { this.refreshPage } 
-            />;
+      return (
+        <LoggedInUser
+          loggedInUserData={loggedInUserData}
+          movies={movies}
+          refreshPage={this.refreshPage}
+        />
+      );
     } else {
       return (
         <main className="App">
