@@ -50,7 +50,7 @@ class LoggedInUser extends Component {
     } else {
       return (
         <main className="LoggedInUserMainPage">
-          <h1>Hello {this.props.name}</h1>
+          <h1>Hello {this.props.loggedInUserData.user.name}</h1>
           <button aria-label="logoutButton" onClick={this.props.refreshPage}>
             Logout
           </button>

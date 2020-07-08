@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -51,7 +52,9 @@ class LoginForm extends Component {
           />
           <button aria-label="submit" onClick={this.handleSubmit} type="submit">Submit</button>
         </form>
-        <button aria-label="close" onClick={this.props.refreshPage}>HOME</button>
+        <NavLink to="/" className="home">
+          <h3 aria-label="close">HOME</h3>
+        </NavLink>
       </main>
     );
   }

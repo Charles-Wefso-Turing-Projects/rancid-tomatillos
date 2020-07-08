@@ -2,9 +2,9 @@ import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
-import LoggedInUser from "../LoggedInUser/LoggedInUser";
-import Nav from "../Nav/Nav.js";
-import { callUserData, getAllMovies } from "../apiCalls";
+import LoggedInUser from "../LoggedInUser/LoggedInUser"
+import { callUserData, getAllMovies } from "../apiCalls"
+import { Switch, Route, NavLink } from 'react-router-dom'
 
 import "./App.css";
 
@@ -14,7 +14,6 @@ class App extends Component {
     this.state = {
       error: null,
       movies: [],
-      loginFormTriggered: false,
       loggedIn: false,
       loggedInUserData: {},
       selectedMovie: {},
@@ -38,23 +37,13 @@ class App extends Component {
 
   getUserData = (loginEmail, loginPassword) => {
     callUserData(loginEmail, loginPassword)
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          loginFormTriggered: false,
-          loggedIn: true,
-          loggedInUserData: { data },
-        });
-      })
-      .catch((error) => {
-        alert(`yo, this is wrong:  ${error}`);
+    .then((data) => {
+      const {user} = data
+      this.setState({
+        loginFormTriggered: false,
+        loggedIn: true,
+        loggedInUserData: { user }
       });
-  };
-
-  triggerForm = () => {
-    this.setState({
-      loginFormTriggered: true,
-    });
   };
 
   refreshPage = () => {
@@ -62,7 +51,9 @@ class App extends Component {
   };
 
   render() {
-    const { error, movies, loginFormTriggered, loggedIn } = this.state;
+
+    const { error, movies, loggedIn, loggedInUserData } = this.state;
+    // conditionally redirect to error
     if (error) {
       return (
         <section className="error">
@@ -70,30 +61,44 @@ class App extends Component {
         </section>
       );
     }
-    if (loginFormTriggered) {
-      return (
-        <LoginForm
-          getUserData={this.getUserData}
-          refreshPage={this.refreshPage}
-        />
-      );
-    }
+    // make this a <Link> to LoginForm
+      // if (loginFormTriggered) {
+      //   return (
+      //     <LoginForm
+
+      //     />
+      //   );
+      // }
+
+    // conditionally redirect to LoggedInUser
     if (loggedIn) {
-      return (
-        <LoggedInUser
-          loggedInUserData={loggedInUserData}
-          movies={movies}
-          refreshPage={this.refreshPage}
-        />
-      );
-    } else {
-      return (
+      return <LoggedInUser 
+                loggedInUserData={ loggedInUserData } 
+                movies={movies} 
+                refreshPage = { this.refreshPage } 
+            />;
+    }
+    
+    return (
         <main className="App">
-          <Nav triggerForm={this.triggerForm} />
-          <MoviesContainer movies={movies} />
+            <Route exact path="/" render= {(routeProps) => 
+              <main>
+                <nav>
+                  <h2>Rancid Tomatillos</h2>
+                  <NavLink to="/login" className= "nav-bar">
+                    <h3>Login</h3>
+                  </NavLink>
+                </nav>
+                <MoviesContainer {...routeProps} movies={movies} />
+              </main>
+            }/>
+            <Route exact path="/login" render= {(routeProps) => 
+              <LoginForm {...routeProps} getUserData={this.getUserData}/>}
+            />
         </main>
       );
-    }
+
+      
   }
 }
 
