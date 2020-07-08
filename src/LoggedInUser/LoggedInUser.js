@@ -35,7 +35,7 @@ class LoggedInUser extends Component {
         console.log(error);
         alert(`yo, this is wrong:  ${error}`);
       });
-  }
+  };
 
   render() {
     if (this.state.selectedMovie !== null) {
