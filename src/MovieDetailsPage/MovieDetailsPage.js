@@ -12,6 +12,8 @@ const MovieDetailsPage = ({ movie, resetMovie}) => {
         <p>Genres: {movie.genres.join(", ")}</p>
         <p>Runtime: {movie.runtime} minutes</p>
         <button onClick= {resetMovie}>Home</button>
+
+        <p>This is Lucy's rating: </p>
       </section>  
     )
 }

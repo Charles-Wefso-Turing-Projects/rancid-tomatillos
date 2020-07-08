@@ -44,7 +44,8 @@ class App extends Component {
         loggedIn: true,
         loggedInUserData: { user }
       });
-  };
+    });
+  }  
 
   refreshPage = () => {
     window.location.reload(false);
