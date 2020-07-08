@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./LoggedInUser.css";
 import MoviesContainer from "../MoviesContainer/MoviesContainer";
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
-import { getMovie } from "../apiCalls";
+import { getMovie, postUserMovieRating } from "../apiCalls";
 
 class LoggedInUser extends Component {
   constructor(props) {
@@ -36,12 +36,17 @@ class LoggedInUser extends Component {
         alert(`yo, this is wrong:  ${error}`);
       });
   };
+  
+  submitUserMovieRating = (id, userRating, movieId) => {
+    postUserMovieRating(id, userRating, movieId)
+  }
 
   render() {
     if (this.state.selectedMovie !== null) {
       return (
         <section>
           <MovieDetailsPage
+            user={this.props.loggedInUserData.user}
             movie={this.state.selectedMovie}
             resetMovie={this.resetMovie}
           />

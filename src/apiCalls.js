@@ -1,5 +1,13 @@
 const url = "https://rancid-tomatillos.herokuapp.com/api/v2";
 
+export const postUserMovieRating = (id, userRating, movieId) => {
+  return fetch(`${url}/users/${id}/ratings`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ movie_id: movieId, rating: userRating}),
+  })
+}
+
 export const callUserData = (loginEmail, loginPassword) => {
   return fetch(`${url}/login`, {
     method: "POST",

@@ -2,15 +2,22 @@ import React, { Component } from "react";
 import "./MovieDetailsPage.css";
 
 class MovieDetailsPage extends Component {
-  constructor(movie, resetMovie, isRated) {
-    super(movie, resetMovie, isRated);
+  constructor(movie, resetMovie, isRated, user) {
+    super(movie, resetMovie, isRated, user);
     this.state = {selectedValue: ''};
+    
+    // this.userId = user.id
   }
   
   handleChange = (e) => {;
-    e.preventDefault()
     const { value } = e.target;
     this.setState({ selectedValue: value });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.submitUserMovieRating(this.props.user.id, this.state.selectedValue, this.props.movie.id);
+    this.resetForm();
   };
   // if(isRated) {
 
