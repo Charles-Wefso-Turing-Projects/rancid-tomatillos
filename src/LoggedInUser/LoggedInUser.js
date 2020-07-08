@@ -55,6 +55,7 @@ class LoggedInUser extends Component {
             Logout
           </button>
           <MoviesContainer
+            loggedIn={this.props.loggedIn}
             movies={this.props.movies}
             setID={this.setID}
             getMovieData={this.getMovieData}
