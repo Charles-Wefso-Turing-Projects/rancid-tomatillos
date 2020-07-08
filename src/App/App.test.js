@@ -32,7 +32,7 @@ describe('App', () => {
     expect(header).toBeInTheDocument()
   });
 
-  it('Should render ideas from the server when loaded', async () => {
+  it.only('Should render ideas from the server when loaded', async () => {
     // Render the App component (this component fetches data from an external back-end API)
     const { getByText } = render(<BrowserRouter><App /></BrowserRouter>)
     // Check that there is a container element on the page
