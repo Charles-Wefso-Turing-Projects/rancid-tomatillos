@@ -5,6 +5,7 @@ import LoginForm from "../LoginForm/LoginForm.js";
 import LoggedInUser from "../LoggedInUser/LoggedInUser"
 import { callUserData, getAllMovies } from "../apiCalls"
 import { Switch, Route, NavLink } from 'react-router-dom'
+
 import "./App.css";
 
 class App extends Component {
@@ -15,25 +16,23 @@ class App extends Component {
       movies: [],
       loggedIn: false,
       loggedInUserData: {},
-      selectedMovie: {}
+      selectedMovie: {},
     };
-    
   }
 
   componentDidMount() {
-    getAllMovies()
-      .then(
-        (result) => {
-          this.setState({
-            movies: result.movies,
-          });
-        },
-        (error) => {
-          this.setState({
-            error,
-          });
-        }
-      );
+    getAllMovies().then(
+      (result) => {
+        this.setState({
+          movies: result.movies,
+        });
+      },
+      (error) => {
+        this.setState({
+          error,
+        });
+      }
+    );
   }
 
   getUserData = (loginEmail, loginPassword) => {
@@ -45,10 +44,6 @@ class App extends Component {
         loggedIn: true,
         loggedInUserData: { user }
       });
-    })
-    .catch((error) => {
-      alert(`yo, this is wrong:  ${error}`)
-    });
   };
 
   refreshPage = () => {
@@ -56,6 +51,7 @@ class App extends Component {
   };
 
   render() {
+
     const { error, movies, loggedIn, loggedInUserData } = this.state;
     // conditionally redirect to error
     if (error) {
