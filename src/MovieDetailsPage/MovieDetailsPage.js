@@ -1,9 +1,9 @@
 import React from 'react';
 import './MovieDetailsPage.css'
 
-const MovieDetailsPage = ({movie, resetMovie}) => {
+const MovieDetailsPage = ({ movie, resetMovie}) => {
     return(
-      <section style={{backgroundImage: 'url(' + movie.backdrop_path + ')'}} className= "movie-details-page" aria-label="image-of-movie">
+      <section style={{backgroundImage: `url (${movie.backdrop_path})`}} className= "movie-details-page" aria-label="image-of-movie">
         <h2>{movie.title}</h2>
         <h3>{movie.tagline}</h3>
         <p>Overview: {movie.overview}</p>
