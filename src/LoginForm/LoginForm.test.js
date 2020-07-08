@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginForm from './LoginForm';
+import { BrowserRouter } from 'react-router-dom';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
@@ -7,10 +8,10 @@ describe('LoginForm', () => {
 
   it('Should render a header, paragraph, and button', () => {
     //Setup
-    const { getByLabelText } = render(<LoginForm 
+    const { getByLabelText } = render(<BrowserRouter><LoginForm 
                 getUserData= {jest.fn()} 
                 refreshPage = {jest.fn()}
-    />)
+    /></BrowserRouter>)
   
     //Execution
     const emailInput = getByLabelText("enter-email-address");
@@ -24,34 +25,15 @@ describe('LoginForm', () => {
     expect(closeButton).toBeInTheDocument()
   });
 
-  
-  it('Should run refreshPage on click of the close button', () => {
-     //Setup
-
-    const mockRefreshPage = jest.fn();
-
-    const { getByLabelText } = render(<LoginForm 
-      getUserData= {jest.fn()} 
-      refreshPage = { mockRefreshPage }
-    />)
-  
-    //Execution
-    const button = getByLabelText("close");
-    fireEvent.click(button)
-  
-    //Assertion
-    expect(mockRefreshPage).toBeCalledTimes(1);
-  });
 
   it('Should run getUserData on click of the submit button', () => {
     //Setup
 
    const mockGetUserData = jest.fn();
 
-   const { getByLabelText } = render(<LoginForm 
+   const { getByLabelText } = render(<BrowserRouter><LoginForm 
      getUserData= { mockGetUserData } 
-     refreshPage = { jest.fn() }
-   />)
+   /></BrowserRouter>)
  
    //Execution
    const button = getByLabelText("submit");

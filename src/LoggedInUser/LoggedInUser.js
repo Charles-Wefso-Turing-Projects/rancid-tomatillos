@@ -48,6 +48,7 @@ class LoggedInUser extends Component {
         </section>
       );
     } else {
+      console.log(this.props.loggedInUserData.user.name)
       return (
         <main className="LoggedInUserMainPage">
           <h1>Hello {this.props.loggedInUserData.user.name}</h1>
