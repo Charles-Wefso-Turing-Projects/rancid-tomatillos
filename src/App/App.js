@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
 import LoggedInUser from "../LoggedInUser/LoggedInUser";
-import { callUserData, getAllMovies } from "../apiCalls";
-import { Switch, Route, NavLink } from "react-router-dom";
+import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
+import { getMovie, getUsersRatings, postUserMovieRating, callUserData, getAllMovies } from "../apiCalls";
+import { Switch, Route, NavLink, Redirect } from "react-router-dom";
 
 import "./App.css";
 
@@ -16,8 +17,10 @@ class App extends Component {
       movies: [],
       loggedIn: false,
       loggedInUserData: {},
-      selectedMovie: {},
+      selectedMovie: null,
+      userRatings: []
     };
+    this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
 
   componentDidMount() {
@@ -35,6 +38,67 @@ class App extends Component {
     );
   }
 
+  //logged in methods
+
+  //not currently being called. Will need to call on successful login
+  loadUserRatings = () => {
+    getUsersRatings(this.state.userID)
+      .then(
+        (result) => {
+          this.setState({
+            userRatings: result,
+          });
+        })
+      .catch((error) => {
+        console.log(error);
+        alert(`yo, this is wrong:  ${error}`);
+      })
+  }
+
+  setID = (e) => {
+    const { id } = e.target.closest(".movie");
+    this.getMovieData(id);
+  };
+
+  resetMovie = () => {
+    this.setState({
+      selectedMovie: null,
+    });
+  };
+
+  getMovieData = (id) => {
+    getMovie(id)
+      .then((data) => {
+        this.setState({
+          selectedMovie: data.movie,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(`yo, this is wrong:  ${error}`);
+      });
+  };
+
+  submitUserMovieRating = (id, userRating, movieId) => {
+    postUserMovieRating(id, userRating, movieId)
+    .then((data) => this.setState({
+      userRatings : this.state.userRatings.push(data)
+    }))
+    .catch((error) => {
+      console.log(error);
+      alert(`yo, this is wrong:  ${error}`);
+    })
+  }
+
+  // is setting to false but not rerendering the page
+  logOutUser = () => {
+    this.setState({
+      loggedIn: false
+    })
+  }
+
+  //main page methods
+
   getUserData = (loginEmail, loginPassword) => {
     callUserData(loginEmail, loginPassword).then((data) => {
       const { user } = data;
@@ -45,12 +109,9 @@ class App extends Component {
       });
     });
   };
-  refreshPage = () => {
-    window.location.reload(false);
-  };
 
   render() {
-    const { error, movies, loggedIn, loggedInUserData } = this.state;
+    const { error, movies, loggedIn, setID, getMovieData, loggedInUserData } = this.state;
     // conditionally redirect to error
     if (error) {
       return (
@@ -60,39 +121,65 @@ class App extends Component {
       );
     }
     // conditionally redirect to LoggedInUser
-    if (loggedIn) {
+    if (!loggedIn) {
       return (
-        <LoggedInUser
-          loggedIn={this.state.loggedIn}
-          loggedInUserData={loggedInUserData}
-          movies={movies}
-          refreshPage={this.refreshPage}
-        />
-      )
-    }
-    
-    return (
         <main aria-label="App" className="App">
-            <Route exact path="/" render= {(routeProps) => 
-              <main>
-                <nav>
-                  <h2>Rancid Tomatillos</h2>
-                  <NavLink to="/login" className= "nav-bar">
-                    <h3>Login</h3>
-                  </NavLink>
-                </nav>
-                <MoviesContainer {...routeProps} movies={movies} />
-              </main>
-            }/>
-            <Route exact path="/login" render= {(routeProps) => 
-              <LoginForm {...routeProps} getUserData={this.getUserData}/>}
-            />
+              <Route exact path="/" render= {(routeProps) => 
+                <main>
+                  <nav>
+                    <h2>Rancid Tomatillos</h2>
+                    <NavLink to="/login" className= "nav-bar">
+                      <h3>Login</h3>
+                    </NavLink>
+                  </nav>
+                  <MoviesContainer {...routeProps} movies={movies} />
+                </main>
+              }/>
+              <Route exact path="/login" render= {(routeProps) => 
+                <LoginForm {...routeProps} getUserData={this.getUserData}/>}
+              />
+          </main>
+        );
+    }
+        
+    if (this.state.selectedMovie !== null) {
+      return (
+        <section>
+          <MovieDetailsPage
+                submitUserMovieRating={this.submitUserMovieRating}
+                user={loggedInUserData.user}
+                movie={this.state.selectedMovie}
+                resetMovie={this.resetMovie}
+                userRatings={this.userRatings}
+          />
+        </section>
+      );
+    } 
+          
+      return (
+        <main aria-label="App" className="App">
+          <Route exact path="/" render= {(routeProps) => 
+            <main>
+              <nav>
+                <h2>Rancid Tomatillos</h2>
+                <h1>Hello {this.state.loggedInUserData.user.name}</h1>
+                  <button aria-label="logoutButton" onClick={this.logOutUser}>
+                    Logout
+                  </button>
+              </nav>
+              <MoviesContainer {...routeProps} movies={movies} setID={setID} getMovieData={getMovieData}/>
+            </main>
+          }/>
+          <Route exact path="/login" render= {(routeProps) => 
+            <LoginForm {...routeProps} getUserData={this.getUserData}/>}
+          />
         </main>
       );
+       
+    }
   }
-}
-
-export default App;
+  
+  export default App;
 
 // App.propTypes = {
 //   movies : PropTypes.array,
