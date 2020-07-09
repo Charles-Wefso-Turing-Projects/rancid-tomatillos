@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./MovieDetailsPage.css";
 
 class MovieDetailsPage extends Component {
-  constructor(movie, resetMovie, isRated, user, submitUserMovieRating) {
-    super(movie, resetMovie, isRated, user, submitUserMovieRating);
+  constructor(movie, resetMovie, isRated, user, submitUserMovieRating, userRatings) {
+    super(movie, resetMovie, isRated, user, submitUserMovieRating, userRatings);
     this.state = {selectedValue: ''};
     
     // this.userId = user.id
@@ -23,7 +23,26 @@ class MovieDetailsPage extends Component {
 
   // } else {
   render() {
-    console.log(this.props.submitUserMovieRating);
+    if(this.props.userRatings) {
+      return (
+        <section
+        style={{ backgroundImage: `url (${this.props.movie.backdrop_path})` }}
+        className="movie-details-page"
+        aria-label="image-of-movie"
+      >
+        <h2>{this.props.movie.title}</h2>
+        <h3>{this.props.movie.tagline}</h3>
+        <p>Overview: {this.props.movie.overview}</p>
+        <p>Release Date: {this.props.movie.release_date}</p>
+        <p>User Rating: {this.props.movie.userRating}</p>
+        <p>Average Rating: {this.props.movie.average_rating}</p>
+        <p>Genres: {this.props.movie.genres.join(", ")}</p>
+        <p>Runtime: {this.props.movie.runtime} minutes</p>
+        <button onClick={this.props.resetMovie}>Home</button>)
+        </section>
+      )
+    }
+
     return (
       
       <section

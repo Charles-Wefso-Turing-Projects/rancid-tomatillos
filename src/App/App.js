@@ -59,15 +59,6 @@ class App extends Component {
         </section>
       );
     }
-    // make this a <Link> to LoginForm
-    // if (loginFormTriggered) {
-    //   return (
-    //     <LoginForm
-
-    //     />
-    //   );
-    // }
-
     // conditionally redirect to LoggedInUser
     if (loggedIn) {
       return (
@@ -77,6 +68,7 @@ class App extends Component {
           movies={movies}
           refreshPage={this.refreshPage}
         />
+      )
     }
     
     return (
@@ -97,34 +89,6 @@ class App extends Component {
             />
         </main>
       );
-    }
-
-    return (
-      <main className="App">
-        <Route
-          exact
-          path="/"
-          render={(routeProps) => (
-            <main>
-              <nav>
-                <h2>Rancid Tomatillos</h2>
-                <NavLink to="/login" className="nav-bar">
-                  <h3>Login</h3>
-                </NavLink>
-              </nav>
-              <MoviesContainer {...routeProps} movies={movies} />
-            </main>
-          )}
-        />
-        <Route
-          exact
-          path="/login"
-          render={(routeProps) => (
-            <LoginForm {...routeProps} getUserData={this.getUserData} />
-          )}
-        />
-      </main>
-    );
   }
 }
 
