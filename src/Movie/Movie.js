@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import './Movie.css'
 
-const Movie = ({movie, setID, getMovieData, id}) => {
+const Movie = ({movie, setID, getMovieData, id, loggedIn}) => {
+// if user is logged in, render this with user button, else return below
+  if(loggedIn) {
+    return(
+      <section className= "movie" id={id} onClick= {setID} >
+        <h2 >{movie.title} </h2>
+        <img src={movie.poster_path} 
+             alt="poster" 
+             className="poster"
+        />
+        <h3 aria-label="average-rating">Average Rating: { movie.average_rating.toFixed(2)}</h3>
+        <button>Test This out</button>
+      </section>
+    )
+  }
   return(
     <section className= "movie" id={id} onClick= {setID} >
       <h2 >{movie.title} </h2>
@@ -9,12 +23,10 @@ const Movie = ({movie, setID, getMovieData, id}) => {
            alt="poster" 
            className="poster"
       />
-      <h3 aria-label="average-rating"></h3>
-      {/* <h3>{movie.release_date}</h3> */}
-      {/* <img src={movie.backdrop_path} alt="backdrop" className="backdrop"/> */}
-      
+      <h3 aria-label="average-rating">Average Rating: { movie.average_rating.toFixed(2)}</h3>
     </section>
   )
 }
+
 
 export default Movie

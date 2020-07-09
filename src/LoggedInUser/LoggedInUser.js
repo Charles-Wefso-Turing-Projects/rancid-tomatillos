@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import "./LoggedInUser.css";
 import MoviesContainer from "../MoviesContainer/MoviesContainer";
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
-import { getMovie } from "../apiCalls";
+import { getMovie, postUserMovieRating } from "../apiCalls";
 
 class LoggedInUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedMovie: null,
+      userRatings: []
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
@@ -35,6 +36,17 @@ class LoggedInUser extends Component {
         console.log(error);
         alert(`yo, this is wrong:  ${error}`);
       });
+  };
+  
+  submitUserMovieRating = (id, userRating, movieId) => {
+    postUserMovieRating(id, userRating, movieId)
+    .then((data) => this.setState({
+      userRatings : this.state.userRatings.push(data)
+    }))
+    .catch((error) => {
+      console.log(error);
+      alert(`yo, this is wrong:  ${error}`);
+    })
   }
 
   render() {
@@ -42,6 +54,8 @@ class LoggedInUser extends Component {
       return (
         <section>
           <MovieDetailsPage
+            submitUserMovieRating={this.submitUserMovieRating}
+            user={this.props.loggedInUserData.user}
             movie={this.state.selectedMovie}
             resetMovie={this.resetMovie}
           />
@@ -56,6 +70,7 @@ class LoggedInUser extends Component {
             Logout
           </button>
           <MoviesContainer
+            loggedIn={this.props.loggedIn}
             movies={this.props.movies}
             setID={this.setID}
             getMovieData={this.getMovieData}

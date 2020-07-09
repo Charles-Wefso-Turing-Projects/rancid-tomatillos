@@ -30,6 +30,7 @@ class LoginForm extends Component {
 
   render() {
     const { email, password } = this.state;
+    
     return (
       <main className="Login">
         <h1>Login Page</h1>
