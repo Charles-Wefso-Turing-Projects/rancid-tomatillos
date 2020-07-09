@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./MovieDetailsPage.css";
 
 class MovieDetailsPage extends Component {
-  constructor(movie, resetMovie, isRated, user) {
-    super(movie, resetMovie, isRated, user);
+  constructor(movie, resetMovie, isRated, user, submitUserMovieRating) {
+    super(movie, resetMovie, isRated, user, submitUserMovieRating);
     this.state = {selectedValue: ''};
     
     // this.userId = user.id
@@ -17,13 +17,15 @@ class MovieDetailsPage extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.submitUserMovieRating(this.props.user.id, this.state.selectedValue, this.props.movie.id);
-    this.resetForm();
+    // display rating
   };
   // if(isRated) {
 
   // } else {
   render() {
+    console.log(this.props.submitUserMovieRating);
     return (
+      
       <section
         style={{ backgroundImage: `url (${this.props.movie.backdrop_path})` }}
         className="movie-details-page"
@@ -52,7 +54,7 @@ class MovieDetailsPage extends Component {
             <option value="9">9</option>
             <option value="10">10</option>
           </select>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" onClick={this.handleSubmit}/>
         </form>
       </section>
     );

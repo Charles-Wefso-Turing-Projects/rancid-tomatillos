@@ -9,6 +9,7 @@ class LoggedInUser extends Component {
     super(props);
     this.state = {
       selectedMovie: null,
+      userRatings: []
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
@@ -39,6 +40,13 @@ class LoggedInUser extends Component {
   
   submitUserMovieRating = (id, userRating, movieId) => {
     postUserMovieRating(id, userRating, movieId)
+    .then((data) => this.setState({
+      userRatings : this.state.userRatings.push(data)
+    }))
+    .catch((error) => {
+      console.log(error);
+      alert(`yo, this is wrong:  ${error}`);
+    })
   }
 
   render() {
@@ -46,6 +54,7 @@ class LoggedInUser extends Component {
       return (
         <section>
           <MovieDetailsPage
+            submitUserMovieRating={this.submitUserMovieRating}
             user={this.props.loggedInUserData.user}
             movie={this.state.selectedMovie}
             resetMovie={this.resetMovie}

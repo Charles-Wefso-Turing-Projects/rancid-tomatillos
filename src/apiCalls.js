@@ -4,7 +4,15 @@ export const postUserMovieRating = (id, userRating, movieId) => {
   return fetch(`${url}/users/${id}/ratings`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ movie_id: movieId, rating: userRating}),
+    body: JSON.stringify({ movie_id: Number(movieId), rating: Number(userRating) }),
+  })
+  // .then(response => console.log(response.ok))
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    console.log(response.statusText)
+      throw response.statusText;
   })
 }
 
@@ -21,6 +29,7 @@ export const callUserData = (loginEmail, loginPassword) => {
     }
     return response.json();
   })
+  
 }
 
 export const getAllMovies = () => {
