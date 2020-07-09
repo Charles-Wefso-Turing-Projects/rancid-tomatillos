@@ -45,7 +45,6 @@ class App extends Component {
       });
     });
   };
-
   refreshPage = () => {
     window.location.reload(false);
   };
@@ -78,6 +77,25 @@ class App extends Component {
           movies={movies}
           refreshPage={this.refreshPage}
         />
+    }
+    
+    return (
+        <main aria-label="App" className="App">
+            <Route exact path="/" render= {(routeProps) => 
+              <main>
+                <nav>
+                  <h2>Rancid Tomatillos</h2>
+                  <NavLink to="/login" className= "nav-bar">
+                    <h3>Login</h3>
+                  </NavLink>
+                </nav>
+                <MoviesContainer {...routeProps} movies={movies} />
+              </main>
+            }/>
+            <Route exact path="/login" render= {(routeProps) => 
+              <LoginForm {...routeProps} getUserData={this.getUserData}/>}
+            />
+        </main>
       );
     }
 
