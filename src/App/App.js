@@ -5,7 +5,7 @@ import LoginForm from "../LoginForm/LoginForm.js";
 import LoggedInUser from "../LoggedInUser/LoggedInUser";
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
 import { getMovie, getUsersRatings, postUserMovieRating, callUserData, getAllMovies } from "../apiCalls";
-import { Switch, Route, NavLink, Redirect } from "react-router-dom";
+import { Switch, Route, NavLink, Redirect, withRouter } from "react-router-dom";
 
 import "./App.css";
 
@@ -107,6 +107,7 @@ class App extends Component {
         loggedIn: true,
         loggedInUserData: { user },
       });
+    this.props.history.push("/")
     });
   };
 
@@ -179,7 +180,7 @@ class App extends Component {
     }
   }
   
-  export default App;
+  export default withRouter(App);
 
 // App.propTypes = {
 //   movies : PropTypes.array,
