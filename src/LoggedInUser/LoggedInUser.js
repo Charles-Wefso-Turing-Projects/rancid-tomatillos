@@ -2,16 +2,32 @@ import React, { Component } from "react";
 import "./LoggedInUser.css";
 import MoviesContainer from "../MoviesContainer/MoviesContainer";
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
-import { getMovie, postUserMovieRating } from "../apiCalls";
+import { getMovie, getUsersRatings, postUserMovieRating } from "../apiCalls";
 
 class LoggedInUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedMovie: null,
-      userRatings: []
+      userRatings: [],
+      userID: this.props.loggedInUserData.user.id
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
+  }
+
+  componentDidMount = () => {
+    getUsersRatings(this.state.userID)
+      .then(
+        (result) => {
+          this.setState({
+            userRatings: result,
+          });
+        })
+      .catch((error) => {
+        console.log(error);
+        alert(`yo, this is wrong:  ${error}`);
+      })
+ 
   }
 
   setID = (e) => {
@@ -58,11 +74,12 @@ class LoggedInUser extends Component {
             user={this.props.loggedInUserData.user}
             movie={this.state.selectedMovie}
             resetMovie={this.resetMovie}
+            userRatings={this.userRatings}
           />
         </section>
       );
     } else {
-      console.log(this.props.loggedInUserData)
+      console.log(this.state.userRatings)
       return (
         <main className="LoggedInUserMainPage">
           <h1>Hello {this.props.loggedInUserData.user.name}</h1>
