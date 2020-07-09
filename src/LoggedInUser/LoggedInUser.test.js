@@ -8,15 +8,19 @@ describe('LoggedInUser', () => {
 
   it('Should render a MovieContainer, a button, and an h1', () => {
     //Setup
+    const user = {
+      name: "Lucy"
+    }
+
     const { getByLabelText, getByRole, getByText } = render(<LoggedInUser 
                 movies= {[]} 
-                loggedInUserData={ {} } 
+                loggedInUserData={ {user} } 
     />)
   
     //Execution
     const MovieContainer = getByLabelText("all-movies");
     const button = getByRole("button")
-    const header = getByText("Hello")
+    const header = getByText("Hello Lucy")
     //Assertion
 
     expect(MovieContainer).toBeInTheDocument()

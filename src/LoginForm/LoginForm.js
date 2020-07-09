@@ -53,7 +53,7 @@ class LoginForm extends Component {
           <button aria-label="submit" onClick={this.handleSubmit} type="submit">Submit</button>
         </form>
         <NavLink to="/" className="home">
-          <h3 aria-label="close">HOME</h3>
+          <h3 aria-label="home">HOME</h3>
         </NavLink>
       </main>
     );

@@ -43,8 +43,9 @@ class App extends Component {
         loginFormTriggered: false,
         loggedIn: true,
         loggedInUserData: { user }
-      });
-  };
+      })
+    })
+  }
 
   refreshPage = () => {
     window.location.reload(false);
@@ -80,7 +81,7 @@ class App extends Component {
     }
     
     return (
-        <main className="App">
+        <main aria-label="App" className="App">
             <Route exact path="/" render= {(routeProps) => 
               <main>
                 <nav>
