@@ -13,6 +13,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      potato: null,
       error: null,
       movies: [],
       loggedIn: false,
@@ -66,18 +67,7 @@ class App extends Component {
     });
   };
 
-  getMovieData = (id) => {
-    getMovie(id)
-      .then((data) => {
-        this.setState({
-          selectedMovie: data.movie,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(`yo, this is wrong:  ${error}`);
-      });
-  };
+
 
   submitUserMovieRating = (id, userRating, movieId) => {
     postUserMovieRating(id, userRating, movieId)
@@ -100,19 +90,20 @@ class App extends Component {
   //main page methods
 
   getUserData = (loginEmail, loginPassword) => {
-    callUserData(loginEmail, loginPassword).then((data) => {
+    callUserData(loginEmail, loginPassword).then(
+    (data) => {
       const { user } = data;
       this.setState({
-        loginFormTriggered: false,
         loggedIn: true,
         loggedInUserData: { user },
+        potato: true
       });
-    this.props.history.push("/")
-    });
+    })
+    .then(this.props.history.push("/"))
   };
 
   render() {
-    const { error, movies, loggedIn, setID, getMovieData, loggedInUserData } = this.state;
+    const { potato, error, movies, loggedIn, setID, loggedInUserData, selectedMovie } = this.state;
     // conditionally redirect to error
     if (error) {
       return (
@@ -133,7 +124,7 @@ class App extends Component {
                       <h3>Login</h3>
                     </NavLink>
                   </nav>
-                  <MoviesContainer {...routeProps} movies={movies} />
+                  <MoviesContainer {...routeProps} movies={movies} loggedIn={loggedIn} potato={potato}/>
                 {/* Maybe add a prop to MoviesContainer for loggedIn, 
                 if it's false render it without the links around 
                 the movies?*/}
@@ -172,7 +163,7 @@ class App extends Component {
                     Logout
                   </button>
               </nav>
-              <MoviesContainer {...routeProps} movies={movies} setID={setID} getMovieData={getMovieData}/>
+              <MoviesContainer {...routeProps} movies={movies} setID={setID} getMovieData={this.getMovieData} selectedMovie={selectedMovie}/>
             </main>
           }/>
           <Route exact path="/login" render= {(routeProps) => 
@@ -189,7 +180,7 @@ class App extends Component {
                         movie={selectedMovie} 
                         user={loggedInUserData.user} 
                         submitUserMovieRating= {this.submitUserMovieRating}
-                        
+                        getMovieData= {this.getMovieData}
                         />}
             } 
           />

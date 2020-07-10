@@ -10,8 +10,9 @@ const MoviesContainer = ({
   getMovieData,
   loggedIn,
 }) => {
+  
   const movieCards = movies.map((movie) => (
-    <Link to= {`/${movie.id}`}>
+    <Link to= {`/${movie.id}`} style={{ textDecoration: 'none', color: 'black' }}>
       <Movie
         movie={movie}
         id={movie.id}
