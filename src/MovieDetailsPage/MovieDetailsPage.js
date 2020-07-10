@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./MovieDetailsPage.css";
 
 class MovieDetailsPage extends Component {
-  constructor(movie, resetMovie, isRated, user, submitUserMovieRating, userRatings) {
-    super(movie, resetMovie, isRated, user, submitUserMovieRating, userRatings);
+  constructor(movie, isRated, user, submitUserMovieRating, userRatings) {
+    super(movie, isRated, user, submitUserMovieRating, userRatings);
     this.state = {selectedValue: ''};
     
     // this.userId = user.id
@@ -23,30 +23,17 @@ class MovieDetailsPage extends Component {
 
   // } else {
   render() {
-    if(this.props.userRatings) {
+    console.log(this.props.movie)
+    if(this.props.movie === undefined) {
       return (
-        <section
-        style={{ backgroundImage: `url (${this.props.movie.backdrop_path})` }}
-        className="movie-details-page"
-        aria-label="image-of-movie"
-      >
-        <h2>{this.props.movie.title}</h2>
-        <h3>{this.props.movie.tagline}</h3>
-        <p>Overview: {this.props.movie.overview}</p>
-        <p>Release Date: {this.props.movie.release_date}</p>
-        <p>User Rating: {this.props.movie.userRating}</p>
-        <p>Average Rating: {this.props.movie.average_rating}</p>
-        <p>Genres: {this.props.movie.genres.join(", ")}</p>
-        <p>Runtime: {this.props.movie.runtime} minutes</p>
-        <button onClick={this.props.resetMovie}>Home</button>)
+        <section>
+          <h1>Loading...</h1>
         </section>
       )
     }
-
-    return (
-      
+    return (    
       <section
-        style={{ backgroundImage: `url (${this.props.movie.backdrop_path})` }}
+        style={{ backgroundImage: `url(${this.props.movie.backdrop_path})` }}
         className="movie-details-page"
         aria-label="image-of-movie"
       >
@@ -55,9 +42,9 @@ class MovieDetailsPage extends Component {
         <p>Overview: {this.props.movie.overview}</p>
         <p>Release Date: {this.props.movie.release_date}</p>
         <p>Average Rating: {this.props.movie.average_rating}</p>
-        <p>Genres: {this.props.movie.genres.join(", ")}</p>
-        <p>Runtime: {this.props.movie.runtime} minutes</p>
-        <button onClick={this.props.resetMovie}>Home</button>
+        {/* <p>Genres: {this.props.movie.genres.join(", ")}</p> */}
+        {/* <p>Runtime: {this.props.movie.runtime} minutes</p> */}
+        {/* Link to main page */}
         {/* if not rated: */}
         <form>
           <select name="rateMovie" onChange={this.handleChange}>

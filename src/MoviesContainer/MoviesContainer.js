@@ -1,6 +1,7 @@
 import React from "react";
 import Movie from "../Movie/Movie.js";
 import "./MoviesContainer.css";
+import { Link } from "react-router-dom";
 
 const MoviesContainer = ({
   movies,
@@ -10,15 +11,17 @@ const MoviesContainer = ({
   loggedIn,
 }) => {
   const movieCards = movies.map((movie) => (
-    <Movie
-      movie={movie}
-      id={movie.id}
-      key={movie.id}
-      setID={setID}
-      getMovieData={getMovieData}
-      selectedMovie={selectedMovie}
-      loggedIn={loggedIn}
-    />
+    <Link to= {`/${movie.id}`}>
+      <Movie
+        movie={movie}
+        id={movie.id}
+        key={movie.id}
+        setID={setID}
+        getMovieData={getMovieData}
+        selectedMovie={selectedMovie}
+        loggedIn={loggedIn}
+        />
+    </Link>
   ));
   // method for iteration
 

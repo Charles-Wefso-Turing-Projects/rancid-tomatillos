@@ -134,28 +134,32 @@ class App extends Component {
                     </NavLink>
                   </nav>
                   <MoviesContainer {...routeProps} movies={movies} />
+                {/* Maybe add a prop to MoviesContainer for loggedIn, 
+                if it's false render it without the links around 
+                the movies?*/}
                 </main>
               }/>
               <Route exact path="/login" render= {(routeProps) => 
                 <LoginForm {...routeProps} getUserData={this.getUserData}/>}
               />
+              
           </main>
         );
     }
         
-    if (this.state.selectedMovie !== null) {
-      return (
-        <section>
-          <MovieDetailsPage
-                submitUserMovieRating={this.submitUserMovieRating}
-                user={loggedInUserData.user}
-                movie={this.state.selectedMovie}
-                resetMovie={this.resetMovie}
-                userRatings={this.userRatings}
-          />
-        </section>
-      );
-    } 
+    // if (this.state.selectedMovie !== null) {
+    //   return (
+    //     <section>
+    //       <MovieDetailsPage
+    //             submitUserMovieRating={this.submitUserMovieRating}
+    //             user={loggedInUserData.user}
+    //             movie={this.state.selectedMovie}
+    //             resetMovie={this.resetMovie}
+    //             userRatings={this.userRatings}
+    //       />
+    //     </section>
+    //   );
+    // } 
           
       return (
         <main aria-label="App" className="App">
@@ -174,9 +178,23 @@ class App extends Component {
           <Route exact path="/login" render= {(routeProps) => 
             <LoginForm {...routeProps} getUserData={this.getUserData}/>}
           />
+
+          <Route 
+            exact path="/:id" 
+            render={(routeProps) => {
+              const { params } = routeProps.match
+              const { id } = params
+              const selectedMovie = movies.find(movie => movie.id === parseInt(id)) 
+              return <MovieDetailsPage {...routeProps} 
+                        movie={selectedMovie} 
+                        user={loggedInUserData.user} 
+                        submitUserMovieRating= {this.submitUserMovieRating}
+                        
+                        />}
+            } 
+          />
         </main>
-      );
-       
+      );      
     }
   }
   
