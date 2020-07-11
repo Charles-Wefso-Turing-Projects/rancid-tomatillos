@@ -15,7 +15,7 @@ class LoggedInUser extends Component {
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
 
-  componentDidMount = () => {
+  loadUserRatings = () => {
     getUsersRatings(this.state.userID)
       .then(
         (result) => {
@@ -27,7 +27,6 @@ class LoggedInUser extends Component {
         console.log(error);
         alert(`yo, this is wrong:  ${error}`);
       })
- 
   }
 
   setID = (e) => {

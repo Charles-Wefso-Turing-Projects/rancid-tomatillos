@@ -1,14 +1,33 @@
 import React, { Component } from "react";
 import "./MovieDetailsPage.css";
+import { getMovie, postUserMovieRating } from "../apiCalls";
 
 class MovieDetailsPage extends Component {
-  constructor(movie, resetMovie, isRated, user, submitUserMovieRating, userRatings) {
-    super(movie, resetMovie, isRated, user, submitUserMovieRating, userRatings);
-    this.state = {selectedValue: ''};
+  constructor(movie, isRated, user, submitUserMovieRating, userRatings, getMovieData, selectedMovie) {
+    super(movie, isRated, user, submitUserMovieRating, userRatings, getMovieData, selectedMovie)
+    this.state = {
+      selectedValue: '',
+      selectedMovie: null
+    }
+  }
     
     // this.userId = user.id
-  }
-  
+
+  componentDidMount() {
+   getMovie(this.props.movie.id)
+    .then((data) => {
+      this.setState({
+        selectedMovie: data.movie,
+        selectedValue: null,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      alert(`yo, this is wrong:  ${error}`);
+    });
+  };
+    
+
   handleChange = (e) => {;
     const { value } = e.target;
     this.setState({ selectedValue: value });
@@ -16,48 +35,49 @@ class MovieDetailsPage extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.submitUserMovieRating(this.props.user.id, this.state.selectedValue, this.props.movie.id);
+    postUserMovieRating(this.props.user.id, this.state.selectedValue, this.props.movie.id)
+    .then((data) => this.setState({
+      userRatings : this.props.userRatings.push(data)
+    }))
+    .catch((error) => {
+      console.log(error);
+      alert(`yo, this is wrong:  ${error}`);
+    })
     // display rating
   };
   // if(isRated) {
 
   // } else {
+
   render() {
-    if(this.props.userRatings) {
+
+    if(this.state.selectedMovie === null) {
       return (
-        <section
-        style={{ backgroundImage: `url (${this.props.movie.backdrop_path})` }}
-        className="movie-details-page"
-        aria-label="image-of-movie"
-      >
-        <h2>{this.props.movie.title}</h2>
-        <h3>{this.props.movie.tagline}</h3>
-        <p>Overview: {this.props.movie.overview}</p>
-        <p>Release Date: {this.props.movie.release_date}</p>
-        <p>User Rating: {this.props.movie.userRating}</p>
-        <p>Average Rating: {this.props.movie.average_rating}</p>
-        <p>Genres: {this.props.movie.genres.join(", ")}</p>
-        <p>Runtime: {this.props.movie.runtime} minutes</p>
-        <button onClick={this.props.resetMovie}>Home</button>)
+        <section>
+          <h1>Loading...</h1>
         </section>
       )
     }
 
-    return (
-      
-      <section
-        style={{ backgroundImage: `url (${this.props.movie.backdrop_path})` }}
+    // if(this.state.selectedMovie) {
+    //   console.log(this.state.selectedMovie)
+
+      return (
+        <section
+        style={{ backgroundImage: `url(${this.props.movie.backdrop_path})` }}
         className="movie-details-page"
         aria-label="image-of-movie"
-      >
+        >
         <h2>{this.props.movie.title}</h2>
-        <h3>{this.props.movie.tagline}</h3>
-        <p>Overview: {this.props.movie.overview}</p>
+        <h3>{this.state.selectedMovie.tagline}</h3>
+        <p>{this.state.selectedMovie.overview}</p>
         <p>Release Date: {this.props.movie.release_date}</p>
         <p>Average Rating: {this.props.movie.average_rating}</p>
-        <p>Genres: {this.props.movie.genres.join(", ")}</p>
-        <p>Runtime: {this.props.movie.runtime} minutes</p>
-        <button onClick={this.props.resetMovie}>Home</button>
+        <p>Genres: {this.state.selectedMovie.genres.join(", ")}</p>
+        <p>Runtime: {this.state.selectedMovie.runtime} minutes</p>
+        {/* <p>Budget: {this.state.selectedMovie.budget} dollars</p>
+        <p>Revenue: {this.state.selectedMovie.revenue} dollars</p> */}
+        {/* Link to main page */}
         {/* if not rated: */}
         <form>
           <select name="rateMovie" onChange={this.handleChange}>
@@ -76,9 +96,11 @@ class MovieDetailsPage extends Component {
           <input type="submit" value="Submit" onClick={this.handleSubmit}/>
         </form>
       </section>
-    );
+      );
+    // }
   }
 }
+
 
 // const handleSubmit = (e) => {
 //   e.preventDefault();
