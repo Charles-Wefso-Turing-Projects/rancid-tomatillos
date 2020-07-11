@@ -2,10 +2,10 @@ import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
-import LoggedInUser from "../LoggedInUser/LoggedInUser";
+
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
-import { getMovie, getUsersRatings, postUserMovieRating, callUserData, getAllMovies } from "../apiCalls";
-import { Switch, Route, NavLink, Redirect, withRouter } from "react-router-dom";
+import { getMovie, getUsersRatings, callUserData, getAllMovies } from "../apiCalls";
+import { Route, NavLink, withRouter } from "react-router-dom";
 
 import "./App.css";
 
@@ -13,7 +13,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      potato: null,
       error: null,
       movies: [],
       loggedIn: false,
