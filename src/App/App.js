@@ -19,7 +19,7 @@ class App extends Component {
       loggedIn: false,
       loggedInUserData: {},
       selectedMovie: null,
-      userRatings: []
+      userRatings: null
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
@@ -36,14 +36,19 @@ class App extends Component {
           error,
         });
       }
-    );
+      )
+  }
+
+  componentDidUpdate() {
+    if(this.state.loggedIn === true){
+      this.loadUserRatings()
+    }
   }
 
   //logged in methods
 
-  //not currently being called. Will need to call on successful login
   loadUserRatings = () => {
-    getUsersRatings(this.state.userID)
+      getUsersRatings(this.state.loggedInUserData.user.id)
       .then(
         (result) => {
           this.setState({
@@ -53,7 +58,7 @@ class App extends Component {
       .catch((error) => {
         console.log(error);
         alert(`yo, this is wrong:  ${error}`);
-      })
+      })   
   }
 
   setID = (e) => {
@@ -66,19 +71,6 @@ class App extends Component {
       selectedMovie: null,
     });
   };
-
-
-
-  submitUserMovieRating = (id, userRating, movieId) => {
-    postUserMovieRating(id, userRating, movieId)
-    .then((data) => this.setState({
-      userRatings : this.state.userRatings.push(data)
-    }))
-    .catch((error) => {
-      console.log(error);
-      alert(`yo, this is wrong:  ${error}`);
-    })
-  }
 
   // is setting to false but not rerendering the page
   logOutUser = () => {
@@ -103,7 +95,8 @@ class App extends Component {
   };
 
   render() {
-    const { potato, error, movies, loggedIn, setID, loggedInUserData, selectedMovie } = this.state;
+
+    const { userRatings, error, movies, loggedIn, setID, loggedInUserData, selectedMovie } = this.state;
     // conditionally redirect to error
     if (error) {
       return (
@@ -124,35 +117,22 @@ class App extends Component {
                       <h3>Login</h3>
                     </NavLink>
                   </nav>
-                  <MoviesContainer {...routeProps} movies={movies} loggedIn={loggedIn} potato={potato}/>
+                  <MoviesContainer {...routeProps} movies={movies} loggedIn={loggedIn} />
                 {/* Maybe add a prop to MoviesContainer for loggedIn, 
                 if it's false render it without the links around 
                 the movies?*/}
                 </main>
               }/>
               <Route exact path="/login" render= {(routeProps) => 
-                <LoginForm {...routeProps} getUserData={this.getUserData}/>}
+                <LoginForm {...routeProps} loggedInUserData={this.loggedInUserData} getUserData={this.getUserData}/>}
               />
               
           </main>
         );
     }
-        
-    // if (this.state.selectedMovie !== null) {
-    //   return (
-    //     <section>
-    //       <MovieDetailsPage
-    //             submitUserMovieRating={this.submitUserMovieRating}
-    //             user={loggedInUserData.user}
-    //             movie={this.state.selectedMovie}
-    //             resetMovie={this.resetMovie}
-    //             userRatings={this.userRatings}
-    //       />
-    //     </section>
-    //   );
-    // } 
-          
-      return (
+      
+      // console.log(this.state.userRatings)
+      return (        
         <main aria-label="App" className="App">
           <Route exact path="/" render= {(routeProps) => 
             <main>
@@ -163,7 +143,7 @@ class App extends Component {
                     Logout
                   </button>
               </nav>
-              <MoviesContainer {...routeProps} movies={movies} setID={setID} getMovieData={this.getMovieData} selectedMovie={selectedMovie}/>
+              <MoviesContainer {...routeProps} movies={movies} setID={setID} getMovieData={this.getMovieData} userRatings={userRatings}/>
             </main>
           }/>
           <Route exact path="/login" render= {(routeProps) => 
@@ -181,6 +161,7 @@ class App extends Component {
                         user={loggedInUserData.user} 
                         submitUserMovieRating= {this.submitUserMovieRating}
                         getMovieData= {this.getMovieData}
+                        userRating= {this.state.userRatings}
                         />}
             } 
           />

@@ -9,6 +9,7 @@ const MoviesContainer = ({
   selectedMovie,
   getMovieData,
   loggedIn,
+  userRatings
 }) => {
   
   const movieCards = movies.map((movie) => (
@@ -21,6 +22,7 @@ const MoviesContainer = ({
         getMovieData={getMovieData}
         selectedMovie={selectedMovie}
         loggedIn={loggedIn}
+        userRatings={userRatings}
         />
     </Link>
   ));

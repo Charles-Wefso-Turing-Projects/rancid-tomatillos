@@ -22,13 +22,15 @@ class LoginForm extends Component {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    this.props.getUserData(this.state.email, this.state.password);
+    await this.props.getUserData(this.state.email, this.state.password);
+    // await this.props.loadUserRatings(this.props.loggedInUserData.user.id)
     this.resetForm();
   };
 
   render() {
+
     const { email, password } = this.state;
     
     return (

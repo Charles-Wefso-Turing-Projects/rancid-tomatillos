@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./MovieDetailsPage.css";
-import { getMovie } from "../apiCalls";
+import { getMovie, postUserMovieRating } from "../apiCalls";
 
 class MovieDetailsPage extends Component {
   constructor(movie, isRated, user, submitUserMovieRating, userRatings, getMovieData, selectedMovie) {
@@ -16,9 +16,9 @@ class MovieDetailsPage extends Component {
   componentDidMount() {
    getMovie(this.props.movie.id)
     .then((data) => {
-      console.log(data)
       this.setState({
         selectedMovie: data.movie,
+        selectedValue: null,
       });
     })
     .catch((error) => {
@@ -35,7 +35,14 @@ class MovieDetailsPage extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.submitUserMovieRating(this.props.user.id, this.state.selectedValue, this.props.movie.id);
+    postUserMovieRating(this.props.user.id, this.state.selectedValue, this.props.movie.id)
+    .then((data) => this.setState({
+      userRatings : this.props.userRatings.push(data)
+    }))
+    .catch((error) => {
+      console.log(error);
+      alert(`yo, this is wrong:  ${error}`);
+    })
     // display rating
   };
   // if(isRated) {
@@ -45,7 +52,6 @@ class MovieDetailsPage extends Component {
   render() {
 
     if(this.state.selectedMovie === null) {
-      console.log(this.state.selectedMovie)
       return (
         <section>
           <h1>Loading...</h1>
@@ -53,9 +59,9 @@ class MovieDetailsPage extends Component {
       )
     }
 
-    if(this.state.selectedMovie) {
-      console.log(this.state.selectedMovie)
-      console.log(this.props.userRatings)    
+    // if(this.state.selectedMovie) {
+    //   console.log(this.state.selectedMovie)
+
       return (
         <section
         style={{ backgroundImage: `url(${this.props.movie.backdrop_path})` }}
@@ -63,8 +69,8 @@ class MovieDetailsPage extends Component {
         aria-label="image-of-movie"
         >
         <h2>{this.props.movie.title}</h2>
-        <h3>{this.props.movie.tagline}</h3>
-        <p>Overview: {this.props.movie.overview}</p>
+        <h3>{this.state.selectedMovie.tagline}</h3>
+        <p>{this.state.selectedMovie.overview}</p>
         <p>Release Date: {this.props.movie.release_date}</p>
         <p>Average Rating: {this.props.movie.average_rating}</p>
         <p>Genres: {this.state.selectedMovie.genres.join(", ")}</p>
@@ -91,7 +97,7 @@ class MovieDetailsPage extends Component {
         </form>
       </section>
       );
-    }
+    // }
   }
 }
 

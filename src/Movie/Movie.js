@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import './Movie.css'
 
-const Movie = ({movie, setID, getMovieData, id, loggedIn}) => {
+const Movie = ({movie, setID, userRatings, id, loggedIn}) => {
 // if user is logged in, render this with user button, else return below
-
   if(loggedIn) {
     return(
         <section className= "movie" id={id}>
