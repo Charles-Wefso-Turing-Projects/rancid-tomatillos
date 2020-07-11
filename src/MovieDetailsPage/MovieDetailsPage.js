@@ -7,7 +7,8 @@ class MovieDetailsPage extends Component {
     super(movie, isRated, user, submitUserMovieRating, userRatings, getMovieData, selectedMovie)
     this.state = {
       selectedValue: '',
-      selectedMovie: null
+      selectedMovie: null,
+      ratings: false
     }
   }
     
@@ -26,6 +27,14 @@ class MovieDetailsPage extends Component {
       alert(`yo, this is wrong:  ${error}`);
     });
   };
+
+  componentDidMount(prevProps) {
+    if (this.props.userRatings !== prevProps.ratings) {
+      this.setState({
+        ratings: true
+      })
+    }
+  }
     
 
   handleChange = (e) => {;
