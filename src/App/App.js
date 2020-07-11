@@ -5,7 +5,6 @@ import LoginForm from "../LoginForm/LoginForm.js";
 
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
 import {
-  getMovie,
   getUsersRatings,
   callUserData,
   getAllMovies,
@@ -83,12 +82,6 @@ class App extends Component {
     this.getMovieData(id);
   };
 
-  resetMovie = () => {
-    this.setState({
-      selectedMovie: null,
-    });
-  };
-
   // is setting to false but not rerendering the page
   logOutUser = () => {
     this.setState({
@@ -105,10 +98,13 @@ class App extends Component {
         this.setState({
           loggedIn: true,
           loggedInUserData: { user },
-          potato: true,
         });
       })
-      .then(this.props.history.push("/"));
+      .then(this.props.history.push("/"))
+      .catch((error) => {
+        alert('Incorrect email or password.')
+        this.props.history.push("/login")
+      });
   };
 
   render() {
@@ -119,7 +115,6 @@ class App extends Component {
       loggedIn,
       setID,
       loggedInUserData,
-      selectedMovie,
     } = this.state;
     // conditionally redirect to error
     if (error) {
@@ -149,9 +144,6 @@ class App extends Component {
                   movies={movies}
                   loggedIn={loggedIn}
                 />
-                {/* Maybe add a prop to MoviesContainer for loggedIn, 
-                if it's false render it without the links around 
-                the movies?*/}
               </main>
             )}
           />
@@ -235,12 +227,4 @@ export default withRouter(App);
 //   movies : PropTypes.array,
 //   button : PropTypes.bool,
 //   error : PropTypes.oneOf([null].isRequired)
-// }
-
-// {
-//   "user": {
-//       "id": 57,
-//       "name": "Lucy",
-//       "email": "lucy@turing.io"
-//   }
 // }

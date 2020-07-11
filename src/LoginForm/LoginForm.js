@@ -25,7 +25,8 @@ class LoginForm extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     await this.props.getUserData(this.state.email, this.state.password);
-    // move to outside of the handleSubmit - causes an error
+    // this.resetForm isn't working as expected - submit button if incorrect
+    // pushes us to the main unlogged user page.
     // this.resetForm();
   };
 
@@ -62,13 +63,5 @@ class LoginForm extends Component {
     );
   }
 }
-
-// {
-//   /* <main className= "Login">
-//           <h1>Login Page</h1>
-//           <LoginForm getUserData= {this.getUserData}/>
-//           {/* <button onClick= {this.refreshPage}>X</button> */
-// }
-// </main> */}
 
 export default LoginForm;

@@ -39,7 +39,6 @@ class MoviesContainer extends Component {
         />
       </Link>
     ));
-    // method for iteration
 
     return (
       <section aria-label="all movies" className="allMovies">
