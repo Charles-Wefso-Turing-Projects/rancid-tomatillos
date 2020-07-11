@@ -18,19 +18,19 @@ const Movie = ({movie, setID, id, loggedIn, key}) => {
     )
   }
 
-   if(userRatings){
-      console.log('Hit');      
-      return(
-        <section className= "movie" id={id}>
-        <h2 >{movie.title} </h2>
-        <img src={movie.poster_path} 
-          alt="poster" 
-          className="poster"
-          />
-        <h3 aria-label="average-rating">Average Rating: { movie.average_rating.toFixed(2)}</h3>
-      </section>
-        )
-    }
+  //  if(userRatings){
+  //     console.log('Hit');      
+  //     return(
+  //       <section className= "movie" id={id}>
+  //       <h2 >{movie.title} </h2>
+  //       <img src={movie.poster_path} 
+  //         alt="poster" 
+  //         className="poster"
+  //         />
+  //       <h3 aria-label="average-rating">Average Rating: { movie.average_rating.toFixed(2)}</h3>
+  //     </section>
+  //       )
+  //   }
     // otherwise, display that it hasn't been rated
     return(
       <section className= "movie" id={id}>

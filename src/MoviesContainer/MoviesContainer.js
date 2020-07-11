@@ -27,19 +27,36 @@ componentDidMount() {
 
   componentDidUpdate(prevProps) {
     if (this.props.userRatings !== prevProps.userRatings && this.props.userRatings !== null) {
-      this.findRatedMovies();
+      this.addMovieRatings();
     }
   }
 
-  findRatedMovies = () => {
+  addMovieRatings = () => {
     return this.props.movies.map((movie) => {
-     return this.props.userRatings.ratings.forEach((ratedMovie) => {
-        if (ratedMovie.movie_id === movie.id) {
-          movie.userRatings = ratedMovie.rating;
+      movie.rated = null
+      return this.props.userRatings.ratings.forEach((userRating) => {
+        if(movie.id === userRating.movie_id){
+         return movie.rated = userRating.rating
         }
-      });
-    });
-  };
+      })
+
+    })
+  }
+
+
+
+
+  // findRatedMovies = () => {
+  //   return this.props.movies.map((movie) => {
+  //    movie.userRatings = null 
+  //    return this.props.userRatings.ratings.forEach((ratedMovie) => {
+  //       if (ratedMovie.movie_id === movie.id) {
+  //         console.log(ratedMovie.rating)
+  //         movie.userRatings = ratedMovie.rating;
+  //       }
+  //     });
+  //   });
+  // };
 
   render() {
     const movieCards = this.props.movies.map((movie) => (
