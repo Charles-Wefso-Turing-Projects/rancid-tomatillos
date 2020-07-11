@@ -51,11 +51,29 @@ class App extends Component {
 
   //logged in methods
 
+  addMovieRatings = () => {
+    const { movies, userRatings } = this.state
+    return movies.map((movie) => {
+      movie.rated = null
+      userRatings.ratings.forEach((userRating) => {
+        if(movie.id === userRating.movie_id){
+          movie.rated = userRating.rating
+        }
+      })
+      return movie
+    })
+  }
+
   loadUserRatings = () => {
     getUsersRatings(this.state.loggedInUserData.user.id)
       .then((result) => {
         this.setState({
           userRatings: result,
+        }, () => {
+          const userRatedMovies = this.addMovieRatings()
+          this.setState({
+            movies : userRatedMovies
+          })
         });
       })
       .catch((error) => {
