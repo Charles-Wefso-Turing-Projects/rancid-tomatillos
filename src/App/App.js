@@ -105,7 +105,7 @@ class App extends Component {
       );
     }
     // conditionally redirect to LoggedInUser
-    if (!loggedIn) {
+    if (!loggedIn ) {
       return (
         <main aria-label="App" className="App">
               <Route exact path="/" render= {(routeProps) => 
