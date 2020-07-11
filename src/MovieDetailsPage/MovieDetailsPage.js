@@ -28,7 +28,7 @@ class MovieDetailsPage extends Component {
     });
   };
 
-  componentDidMount(prevProps) {
+  componentDidUpdate(prevProps) {
     if (this.props.userRatings !== prevProps.ratings) {
       this.setState({
         ratings: true

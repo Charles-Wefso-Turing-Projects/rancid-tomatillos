@@ -7,7 +7,6 @@ class MoviesContainer extends Component {
   constructor({
     movies,
     setID,
-    selectedMovie,
     getMovieData,
     loggedIn,
     userRatings,
@@ -15,12 +14,16 @@ class MoviesContainer extends Component {
     super({
       movies,
       setID,
-      selectedMovie,
       getMovieData,
       loggedIn,
       userRatings,
     });
   }
+  
+componentDidMount() {
+  console.log('MoviesContainer Logged In true:', this.props.loggedIn);
+
+}
 
   componentDidUpdate(prevProps) {
     if (this.props.userRatings !== prevProps.userRatings && this.props.userRatings !== null) {
@@ -30,9 +33,9 @@ class MoviesContainer extends Component {
 
   findRatedMovies = () => {
     return this.props.movies.map((movie) => {
-      this.props.userRatings.ratings.map((ratedMovie) => {
+     return this.props.userRatings.ratings.forEach((ratedMovie) => {
         if (ratedMovie.movie_id === movie.id) {
-          return (movie.userRatings = ratedMovie.rating);
+          movie.userRatings = ratedMovie.rating;
         }
       });
     });
@@ -52,14 +55,13 @@ class MoviesContainer extends Component {
           getMovieData={this.props.getMovieData}
           selectedMovie={this.props.selectedMovie}
           loggedIn={this.props.loggedIn}
-          userRatings={this.props.userRatings}
         />
       </Link>
     ));
     // method for iteration
 
     return (
-      <section aria-label="all-this.propsmovies" className="allMovies">
+      <section aria-label="all movies" className="allMovies">
         {movieCards}
       </section>
     );
