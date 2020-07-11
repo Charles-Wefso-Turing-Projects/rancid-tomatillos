@@ -51,9 +51,8 @@ class App extends Component {
 
   //logged in methods
 
-  addMovieRatings = () => {
-    const { movies, userRatings } = this.state
-    return movies.map((movie) => {
+  addMovieRatings = (userRatings) => {
+    return this.state.movies.map((movie) => {
       movie.rated = null
       userRatings.ratings.forEach((userRating) => {
         if(movie.id === userRating.movie_id){
@@ -66,15 +65,12 @@ class App extends Component {
 
   loadUserRatings = () => {
     getUsersRatings(this.state.loggedInUserData.user.id)
-      .then((result) => {
-        this.setState({
-          userRatings: result,
-        }, () => {
-          const userRatedMovies = this.addMovieRatings()
+      .then((result) => { 
+          const userRatedMovies = this.addMovieRatings(result)
           this.setState({
+            userRatings : result,
             movies : userRatedMovies
           })
-        });
       })
       .catch((error) => {
         console.log(error);
@@ -135,7 +131,6 @@ class App extends Component {
     }
     // conditionally redirect to LoggedInUser
     if (!loggedIn) {
-      console.log('LoggedIn False: ', loggedIn)
       return (
         <main aria-label="App" className="App">
           <Route
@@ -175,10 +170,7 @@ class App extends Component {
       );
     }
 
-    // console.log(this.state.userRatings)
-    console.log('loggedIn true:', loggedIn);
     return (
-      
       <main aria-label="App" className="App">
         <Route
           exact

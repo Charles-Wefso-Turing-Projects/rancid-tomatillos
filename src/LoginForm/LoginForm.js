@@ -25,8 +25,8 @@ class LoginForm extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     await this.props.getUserData(this.state.email, this.state.password);
-    // await this.props.loadUserRatings(this.props.loggedInUserData.user.id)
-    this.resetForm();
+    // move to outside of the handleSubmit - causes an error
+    // this.resetForm();
   };
 
   render() {

@@ -24,6 +24,7 @@ class MoviesContainer extends Component {
     const movieCards = this.props.movies.map((movie) => (
       <Link
         to={`/${movie.id}`}
+        key={movie.id}
         style={{ textDecoration: "none", color: "black" }}
       >
         <Movie
