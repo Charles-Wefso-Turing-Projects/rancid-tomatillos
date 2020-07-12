@@ -1,5 +1,12 @@
 const url = "https://rancid-tomatillos.herokuapp.com/api/v2";
 
+export const deleteUsersRating = async (userID, ratingID) => {
+  const response = await fetch(`${url}/users/${userID}/ratings/${ratingID}`, {
+    method: "DELETE" })
+    const data = await response;
+    return data
+}
+
 export const getUsersRatings = (id) => {
   return fetch(`${url}/users/${id}/ratings`)
   .then((res) => res.json())

@@ -8,6 +8,7 @@ import {
   getUsersRatings,
   callUserData,
   getAllMovies,
+  deleteUsersRating
 } from "../apiCalls";
 import { Route, NavLink, withRouter } from "react-router-dom";
 
@@ -49,6 +50,13 @@ class App extends Component {
   }
 
   //logged in methods
+
+  // create delete post 
+  deleteRating = (userID, movieID) => {
+    deleteUsersRating(userID, movieID)
+  }
+  
+// passed into movie details page
 
   addMovieRatings = (userRatings) => {
     return this.state.movies.map((movie) => {
@@ -216,6 +224,7 @@ class App extends Component {
                 submitUserMovieRating={this.submitUserMovieRating}
                 getMovieData={this.getMovieData}
                 userRating={this.state.userRatings}
+                deleteRating={this.deleteRating}
               />
             );
           }}
