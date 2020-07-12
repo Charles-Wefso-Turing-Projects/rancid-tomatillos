@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./MovieDetailsPage.css";
 import { getMovie, postUserMovieRating } from "../apiCalls";
+import { NavLink } from "react-router-dom";
 
 class MovieDetailsPage extends Component {
   constructor(
@@ -94,10 +95,13 @@ class MovieDetailsPage extends Component {
         <p>Runtime: {this.state.selectedMovie.runtime} minutes</p>
         {/* <p>Budget: {this.state.selectedMovie.budget} dollars</p>
         <p>Revenue: {this.state.selectedMovie.revenue} dollars</p> */}
-        {/* Link to main page */}
-        {/* if not rated: */}
+
+
         {this.props.movie.rated ? (
-          <p>Your Rating: {this.props.movie.rated}</p>
+          <div>
+            <p>Your Rating: {this.props.movie.rated}</p>
+            <button aria-label="delete-rating">Delete</button>
+          </div>
         ) : (
           <form>
             <select name="rateMovie" onChange={this.handleChange}>
@@ -116,6 +120,9 @@ class MovieDetailsPage extends Component {
             <input type="submit" value="Submit" onClick={this.handleSubmit} />
           </form>
         )}
+        <NavLink to="/" className="home">
+          <h3 aria-label="home">HOME</h3>
+        </NavLink>
       </section>
     );
     // }
