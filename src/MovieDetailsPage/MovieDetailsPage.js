@@ -108,7 +108,7 @@ class MovieDetailsPage extends Component {
           <div>
             <p>Your Rating: {this.props.movie.rated}</p>
             {/* connect passed in delete post via onSubmit */}
-            <button onClick={ this.handleDeleteRating }aria-label="delete-rating" type="submit" >Delete</button>
+            <button onClick={ this.handleDeleteRating } aria-label="delete-rating" type="button" >Delete</button>
           </div>
         ) : (
           <form>

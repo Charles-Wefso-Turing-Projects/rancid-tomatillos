@@ -52,14 +52,10 @@ class App extends Component {
   //logged in methods
 
   // create delete post 
-  deleteRating = (userID, MovieID) => {
-    deleteUsersRating(userID, MovieID)
-    .then(data => alert(`rating removed`))
-    .catch((error) => {
-      console.log(error);
-      alert(`yo, this is wrong:  ${error}`);
-    });
+  deleteRating = (userID, movieID) => {
+    deleteUsersRating(userID, movieID)
   }
+  
 // passed into movie details page
 
   addMovieRatings = (userRatings) => {

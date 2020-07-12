@@ -1,22 +1,11 @@
 const url = "https://rancid-tomatillos.herokuapp.com/api/v2";
 
-export const deleteUsersRating = (userID, ratingID) => {
-  return fetch(`/users/${userID}/ratings/${ratingID}`, {
-    method: "DELETE"})
-    .then((response) => {
-      if (!response.ok) {
-        console.log(response.statusText)
-        throw response.statusText;
-      }
-      return response.json();
-    });
+export const deleteUsersRating = async (userID, ratingID) => {
+  const response = await fetch(`${url}/users/${userID}/ratings/${ratingID}`, {
+    method: "DELETE" })
+    const data = await response;
+    return data
 }
-// export const deleteRatingApi = async (userID, movieID) => {
-//   const url = `${rootUrl}users/${userID}/ratings/${movieID}`;
-//   const response = await fetch(url, {method: "DELETE"});
-//   const data = await response;
-//   return data;
-// };
 
 export const getUsersRatings = (id) => {
   return fetch(`${url}/users/${id}/ratings`)
