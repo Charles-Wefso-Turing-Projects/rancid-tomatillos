@@ -11,7 +11,8 @@ class MovieDetailsPage extends Component {
     submitUserMovieRating,
     userRatings,
     getMovieData,
-    selectedMovie
+    selectedMovie,
+    deleteRating
   ) {
     super(
       movie,
@@ -20,7 +21,8 @@ class MovieDetailsPage extends Component {
       submitUserMovieRating,
       userRatings,
       getMovieData,
-      selectedMovie
+      selectedMovie,
+      deleteRating
     );
     this.state = {
       selectedValue: "",
@@ -55,6 +57,11 @@ class MovieDetailsPage extends Component {
     const { value } = e.target;
     this.setState({ selectedValue: value });
   };
+
+  handleDeleteRating = (e) => {
+    e.preventDefault();
+    this.props.deleteRating(this.props.movie.user_id, this.props.movie.rating_id)
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -100,7 +107,8 @@ class MovieDetailsPage extends Component {
         {this.props.movie.rated ? (
           <div>
             <p>Your Rating: {this.props.movie.rated}</p>
-            <button aria-label="delete-rating">Delete</button>
+            {/* connect passed in delete post via onSubmit */}
+            <button onClick={ this.handleDeleteRating }aria-label="delete-rating" type="submit" >Delete</button>
           </div>
         ) : (
           <form>

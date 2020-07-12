@@ -8,6 +8,7 @@ import {
   getUsersRatings,
   callUserData,
   getAllMovies,
+  deleteUsersRating
 } from "../apiCalls";
 import { Route, NavLink, withRouter } from "react-router-dom";
 
@@ -49,6 +50,17 @@ class App extends Component {
   }
 
   //logged in methods
+
+  // create delete post 
+  deleteRating = (userID, MovieID) => {
+    deleteUsersRating(userID, MovieID)
+    .then(data => alert(`rating removed`))
+    .catch((error) => {
+      console.log(error);
+      alert(`yo, this is wrong:  ${error}`);
+    });
+  }
+// passed into movie details page
 
   addMovieRatings = (userRatings) => {
     return this.state.movies.map((movie) => {
@@ -216,6 +228,7 @@ class App extends Component {
                 submitUserMovieRating={this.submitUserMovieRating}
                 getMovieData={this.getMovieData}
                 userRating={this.state.userRatings}
+                deleteRating={this.deleteRating}
               />
             );
           }}
