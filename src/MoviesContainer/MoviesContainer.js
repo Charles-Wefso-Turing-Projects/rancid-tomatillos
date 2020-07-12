@@ -1,4 +1,4 @@
-import React, from "react";
+import React from "react";
 import Movie from "../Movie/Movie.js";
 import "./MoviesContainer.css";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ const MoviesContainer = ({
   const movieCards = movies.map((movie) => (
     <Link
     to={`/${movie.id}`}
+    aria-label="movie"
     key={movie.id}
     style={{ textDecoration: "none", color: "black" }}
     >
@@ -30,7 +31,7 @@ const MoviesContainer = ({
     ));
     
     return (
-      <section aria-label="all movies" className="allMovies">
+      <section aria-label="all-movies" className="allMovies">
         {movieCards}
       </section>
     );

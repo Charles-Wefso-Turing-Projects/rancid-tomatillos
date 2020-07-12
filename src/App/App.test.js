@@ -22,6 +22,13 @@ const sampleMoviesData = {"movies":
 "release_date":"2020-03-05"}]}
 
 describe('App', () => {
+
+  //If not logged in, should render <h2> NavLink to login and MoviesContainer
+
+  //If logged in should render <h1> greeting, logout button and MoviesContainer
+
+  //What fetch methods do we need to be testing?
+
   beforeEach(async () => { 
     await getAllMovies.mockResolvedValueOnce(sampleMoviesData)
   })

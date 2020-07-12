@@ -4,6 +4,12 @@ import Movie from "./Movie";
 import "@testing-library/jest-dom";
 import { render, fireEvent, getByAltText, getByText, getByLabelText } from "@testing-library/react";
 
+//If not logged in should show title, poster, average rating
+
+//If logged in and movie is rating should see user rating
+
+//If logged in and movie is not rated should see Not Yet Rated
+
 describe("Movie", () => {
   it("should render a title, img and average rating", () => {
     expect(true).toEqual(true);

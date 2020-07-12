@@ -7,6 +7,14 @@ import { createMemoryHistory } from 'history';
 
 describe('LoginForm', () => {
 
+  //Should render a  header, inputs, submit button and home link
+
+  //Should change location to "/" when the home button is clicked.
+
+  //It should fire getUserData on a successful response
+
+  //It should reload page with inputs cleared on a failed response
+
   it('Should render a header, paragraph, and button', () => {
     //Setup
     const { getByLabelText } = render(<BrowserRouter><LoginForm 

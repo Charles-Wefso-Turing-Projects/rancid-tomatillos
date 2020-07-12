@@ -5,6 +5,16 @@ import "@testing-library/jest-dom";
 import { render, getByDisplayValue, fireEvent } from "@testing-library/react";
 
 describe("MoveDetailsPage", () => {
+
+//If the movies haven't loaded should show a loading page
+
+//If the movie has been rated show a rating a delete button
+
+//If logged in and movie is not rated, should see rating form.
+
+//Submitting a rating makes a post request to the ratings API
+//and reroutes the user to the "/" url
+
   it("should render a movies details", () => {
     expect(true).toEqual(true);
   });
