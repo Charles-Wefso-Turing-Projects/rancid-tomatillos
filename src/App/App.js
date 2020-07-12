@@ -53,9 +53,13 @@ class App extends Component {
   addMovieRatings = (userRatings) => {
     return this.state.movies.map((movie) => {
       movie.rated = null
+      movie.rating_id = null
+      movie.user_id = null
       userRatings.ratings.forEach((userRating) => {
         if(movie.id === userRating.movie_id){
           movie.rated = userRating.rating
+          movie.rating_id =  userRating.id
+          movie.user_id = userRating.user_id
         }
       })
       return movie
