@@ -24,6 +24,7 @@ class App extends Component {
       loggedInUserData: {},
       selectedMovie: null,
       userRatings: null,
+      favoriteMovies: []
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
