@@ -44,9 +44,10 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.loggedIn === true) {
-      this.loadUserRatings();
-    }
+
+      if (this.state.loggedIn === true) {
+            this.loadUserRatings()
+        }
   }
 
   //logged in methods
@@ -75,18 +76,20 @@ class App extends Component {
   }
 
   loadUserRatings = () => {
-    getUsersRatings(this.state.loggedInUserData.user.id)
-      .then((result) => { 
-          const userRatedMovies = this.addMovieRatings(result)
-          this.setState({
-            userRatings : result,
-            movies : userRatedMovies
-          })
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(`yo, this is wrong:  ${error}`);
-      });
+    if(!this.state.userRatings) {
+      getUsersRatings(this.state.loggedInUserData.user.id)
+        .then((result) => { 
+            const userRatedMovies = this.addMovieRatings(result)
+            this.setState({
+              userRatings : result,
+              movies : userRatedMovies
+            })
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(`yo, this is wrong:  ${error}`);
+        });
+    }
   };
 
   setID = (e) => {

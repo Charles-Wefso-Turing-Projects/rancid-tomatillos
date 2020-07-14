@@ -4,14 +4,27 @@ import { render } from 'enzyme';
 import { getComments } from "../apiCalls";
 
 class CommentContainer extends Component  {
-  constructor({movie, removeComment}){
-    super({movie, removeComment});
+  constructor(){
+    super();
     this.state = {
       comments: []
     }
   }
   
   componentDidMount() {
+    this.getData()
+  }
+  
+  componentDidUpdate() {
+    if(!this.props.timeToUpdate) {
+      return 
+    }
+
+    this.getData()
+  }
+  
+  getData = () => {
+    this.props.setTimeToUpdate(false)
     getComments()
     .then((data) => {
       this.setState({
@@ -23,11 +36,10 @@ class CommentContainer extends Component  {
       alert(`yo, this is wrong:  ${error}`);
     });
   }
-  
-  
+
   render() {
-    const cards = this.state.comments.map(comment => (
-      <Comment {...comment} removeComment = {this.props.removeComment} key = {comment.id} />
+    const cards = this.state.comments.map((comment, index) => (
+      <Comment {...comment} removeComment={this.props.removeComment} key={comment.id || `comment-index-${index}`} />
     ));
     
     return(

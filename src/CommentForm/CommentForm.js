@@ -29,6 +29,7 @@ class CommentForm extends Component {
     postComment(this.state)
     this.props.addComment(this.state);
     this.resetState();
+    this.props.setTimeToUpdate(true)
   }
 
   render(){
