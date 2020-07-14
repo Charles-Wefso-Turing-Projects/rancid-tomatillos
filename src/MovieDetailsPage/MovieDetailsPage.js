@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./MovieDetailsPage.css";
 import { getMovie, postUserMovieRating } from "../apiCalls";
 import { NavLink } from "react-router-dom";
+import CommentForm from "../CommentForm/CommentForm.js";
+import CommentContainer from "../CommentContainer/CommentContainer.js";
+
 
 class MovieDetailsPage extends Component {
   constructor(
@@ -28,6 +31,7 @@ class MovieDetailsPage extends Component {
       selectedValue: "",
       selectedMovie: null,
       ratings: false,
+      comments: []
     };
   }
 
@@ -51,6 +55,21 @@ class MovieDetailsPage extends Component {
         ratings: true,
       });
     }
+  }
+
+  addComment = (comment) => {
+    const newComment = {
+      ...comment, id : Date.now()
+    };
+
+    const comments = [...this.state.comments, newComment];
+
+    this.setState({ comments });
+  }
+
+  removeComment = (id) => {
+    const comments = this.state.comments.filter(comment => id !== comment.id);
+    this.setState({ comments });
   }
 
   handleChange = (e) => {
@@ -131,6 +150,8 @@ class MovieDetailsPage extends Component {
         <NavLink to="/" className="home">
           <h3 aria-label="home">HOME</h3>
         </NavLink>
+        <CommentContainer comments= { this.state.comments } removeComment= {this.removeComment} />
+        <CommentForm addComment= {this.addComment} />
       </section>
     );
     // }
