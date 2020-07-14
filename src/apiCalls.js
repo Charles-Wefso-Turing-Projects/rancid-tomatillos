@@ -1,5 +1,20 @@
 const url = "https://rancid-tomatillos.herokuapp.com/api/v2";
 
+export const postComment = async (comment) => {
+  
+  console.log(comment)
+  const response = await fetch(`http://localhost:3002/api/v1/movies/comments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ author: comment.author, comment: comment.comment, movie_id: comment.movie_id, id: comment.id}),
+  })
+    if (response.ok) {
+      return await response.json();
+    }
+    console.log(response.statusText)
+      throw response.statusText;
+}
+
 export const getComments = async () => {
   const response = await fetch(`http://localhost:3002/api/v1/movies/comments`);
   if (response.ok) {

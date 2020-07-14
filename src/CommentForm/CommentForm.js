@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
+import { postComment } from "../apiCalls";
 
 class CommentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title : "",
       author: "",
-      content : ""
+      comment : "",
+      movie_id : this.props.movie.id,
+      id : Date.now
     };
   };
 
@@ -17,30 +19,23 @@ class CommentForm extends Component {
 
   resetState = () => {
     this.setState({
-      title : "",
       author : "",
-      content : ""
+      comment : ""
     });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+    postComment(this.state)
     this.props.addComment(this.state);
     this.resetState();
   }
 
   render(){
-    const {title, author, content} = this.state;
+    const {author, comment} = this.state;
     return(
       <div>
         <form onSubmit = {this.handleSubmit}>
-        <input
-            type="text"
-            name="title"
-            value={title}
-            placeholder="title"
-            onChange = {this.handleChange}
-          />
           <input
             type="text"
             name="author"
@@ -50,9 +45,9 @@ class CommentForm extends Component {
           />
           <input 
             type="text"
-            name="content"
-            value={content}
-            placeholder="content"
+            name="comment"
+            value={comment}
+            placeholder="comment"
             onChange= {this.handleChange}
           />
           <button>Add Comment</button>

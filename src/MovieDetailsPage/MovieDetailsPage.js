@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./MovieDetailsPage.css";
-import { getMovie, postUserMovieRating, getComments } from "../apiCalls";
+import { postComment, getMovie, postUserMovieRating } from "../apiCalls";
 import { NavLink } from "react-router-dom";
 import CommentForm from "../CommentForm/CommentForm.js";
 import CommentContainer from "../CommentContainer/CommentContainer.js";
@@ -30,7 +30,8 @@ class MovieDetailsPage extends Component {
     this.state = {
       selectedValue: "",
       selectedMovie: null,
-      ratings: false
+      ratings: false,
+      comments: []
     };
   }
 
@@ -61,10 +62,9 @@ class MovieDetailsPage extends Component {
     const newComment = {
       ...comment, id : Date.now()
     };
-
     const comments = [...this.state.comments, newComment];
-
     this.setState({ comments });
+    this.forceUpdate();
   }
 
   removeComment = (id) => {
@@ -151,7 +151,7 @@ class MovieDetailsPage extends Component {
           <h3 aria-label="home">HOME</h3>
         </NavLink>
         <CommentContainer movie={this.props.movie} removeComment= {this.removeComment} />
-        <CommentForm addComment= {this.addComment} />
+        <CommentForm addComment= {this.addComment} movie= {this.props.movie}/>
       </section>
     );
     // }
