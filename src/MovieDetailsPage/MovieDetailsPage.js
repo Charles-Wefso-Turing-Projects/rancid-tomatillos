@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./MovieDetailsPage.css";
-import { getMovie, postUserMovieRating } from "../apiCalls";
+import { getMovie, postUserMovieRating, getComments } from "../apiCalls";
 import { NavLink } from "react-router-dom";
 import CommentForm from "../CommentForm/CommentForm.js";
 import CommentContainer from "../CommentContainer/CommentContainer.js";
@@ -30,8 +30,7 @@ class MovieDetailsPage extends Component {
     this.state = {
       selectedValue: "",
       selectedMovie: null,
-      ratings: false,
-      comments: []
+      ratings: false
     };
   }
 
@@ -48,6 +47,7 @@ class MovieDetailsPage extends Component {
         alert(`yo, this is wrong:  ${error}`);
       });
   }
+
 
   componentDidUpdate(prevProps) {
     if (this.props.userRatings !== prevProps.ratings) {
@@ -150,7 +150,7 @@ class MovieDetailsPage extends Component {
         <NavLink to="/" className="home">
           <h3 aria-label="home">HOME</h3>
         </NavLink>
-        <CommentContainer comments= { this.state.comments } removeComment= {this.removeComment} />
+        <CommentContainer movie={this.props.movie} removeComment= {this.removeComment} />
         <CommentForm addComment= {this.addComment} />
       </section>
     );

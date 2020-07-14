@@ -1,5 +1,14 @@
 const url = "https://rancid-tomatillos.herokuapp.com/api/v2";
 
+export const getComments = async () => {
+  const response = await fetch(`http://localhost:3002/api/v1/movies/comments`);
+  if (response.ok) {
+    return await response.json();
+  }
+  console.log(response.statusText)
+  throw response.statusText;
+};
+
 export const deleteUsersRating = async (userID, ratingID) => {
   const response = await fetch(`${url}/users/${userID}/ratings/${ratingID}`, {
     method: "DELETE" })
