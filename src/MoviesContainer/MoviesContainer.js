@@ -8,6 +8,7 @@ const MoviesContainer = ({
   setID,
   getMovieData,
   loggedIn,
+  selectedMovie
 }) => {
 
   const movieCards = movies.map((movie) => (
