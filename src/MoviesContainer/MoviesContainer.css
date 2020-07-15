@@ -4,11 +4,11 @@
 } */
 
 .poster {
- height: 400px;
+ height: 40vh;
 }
 
 .allMovies {
-  background: #EAEAF4;
+  background: black;
   display: grid;
   flex-grow: 3;
   font-size: 14px;

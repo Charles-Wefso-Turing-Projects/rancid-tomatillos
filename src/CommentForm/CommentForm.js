@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { postComment } from "../apiCalls";
+import "./CommentForm.css";
 
 class CommentForm extends Component {
   constructor(props) {
@@ -35,8 +36,8 @@ class CommentForm extends Component {
   render(){
     const {author, comment} = this.state;
     return(
-      <div>
-        <form onSubmit = {this.handleSubmit}>
+      <section >
+        <form aria-label="new-comment-form" className="new-comment-form" onSubmit = {this.handleSubmit}>
           <input
             type="text"
             name="author"
@@ -53,7 +54,7 @@ class CommentForm extends Component {
           />
           <button>Add Comment</button>
         </form>
-      </div>
+      </section>
     )
   }
 }

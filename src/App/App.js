@@ -44,7 +44,6 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-
       if (this.state.loggedIn === true) {
             this.loadUserRatings()
         }
@@ -148,7 +147,7 @@ class App extends Component {
             path="/"
             render={(routeProps) => (
               <main>
-                <nav>
+                <nav className="navBar">
                   <h2>Rancid Tomatillos</h2>
                   <NavLink to="/login" className="nav-bar">
                     <h3>Login</h3>
@@ -184,7 +183,7 @@ class App extends Component {
           path="/"
           render={(routeProps) => (
             <main>
-              <nav>
+              <nav className="navBar">
                 <h2>Rancid Tomatillos</h2>
                 <h1>Hello {this.state.loggedInUserData.user.name}</h1>
                 <button aria-label="logoutButton" onClick={this.logOutUser}>

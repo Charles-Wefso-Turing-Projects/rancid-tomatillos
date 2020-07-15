@@ -39,7 +39,7 @@ class CommentContainer extends Component  {
 
   render() {
     const cards = this.state.comments.map((comment, index) => (
-      <Comment {...comment} removeComment={this.props.removeComment} key={comment.id || `comment-index-${index}`} />
+      <Comment {...comment} key={comment.id || `comment-index-${index}`} />
     ));
     
     return(
