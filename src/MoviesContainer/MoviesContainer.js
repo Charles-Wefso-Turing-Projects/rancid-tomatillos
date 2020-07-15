@@ -11,6 +11,20 @@ const MoviesContainer = ({
   selectedMovie
 }) => {
 
+  const loggedOutMovieCards = movies.map((movie) => (
+        <Movie
+          movie={movie}
+          id={movie.id}
+          key={movie.id}
+          setID={setID}
+          getMovieData={getMovieData}
+          selectedMovie={selectedMovie}
+          loggedIn={loggedIn}
+          rated={movie.rated}
+        />
+    ));
+  
+
   const movieCards = movies.map((movie) => (
     <Link
     to={`/${movie.id}`}
@@ -31,6 +45,14 @@ const MoviesContainer = ({
       </Link>
     ));
     
+    if(!loggedIn) {
+      return (
+        <section aria-label="all-movies" className="allMovies">
+         {loggedOutMovieCards}
+        </section>
+      )
+    }
+
     return (
       <section aria-label="all-movies" className="allMovies">
         {movieCards}

@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import "./MovieDetailsPage.css";
-import { getMovie, postUserMovieRating } from "../apiCalls";
+import { deleteComment, getMovie, postUserMovieRating } from "../apiCalls";
 import { NavLink } from "react-router-dom";
+import CommentForm from "../CommentForm/CommentForm.js";
+import CommentContainer from "../CommentContainer/CommentContainer.js";
+
 
 class MovieDetailsPage extends Component {
   constructor(
@@ -28,6 +31,8 @@ class MovieDetailsPage extends Component {
       selectedValue: "",
       selectedMovie: null,
       ratings: false,
+      comments: [],
+      timeToUpdate: false
     };
   }
 
@@ -45,12 +50,28 @@ class MovieDetailsPage extends Component {
       });
   }
 
+
   componentDidUpdate(prevProps) {
     if (this.props.userRatings !== prevProps.ratings) {
       this.setState({
         ratings: true,
       });
     }
+  }
+
+  addComment = (comment) => {
+    const newComment = {
+      ...comment, id : Date.now()
+    };
+    const comments = [...this.state.comments, newComment];
+    this.setState({ comments });
+    this.props.history.push(`/${this.props.movie.id}`)
+  }
+
+  removeComment = (id) => {
+    deleteComment(id)
+    const comments = this.state.comments.filter(comment => id !== comment.id);
+    this.setState({ comments });
   }
 
   handleChange = (e) => {
@@ -76,6 +97,12 @@ class MovieDetailsPage extends Component {
       })
       .then(this.props.history.push("/"));
   };
+
+  setTimeToUpdate = (bool = false) => {
+    this.setState({
+      timeToUpdate: bool
+    })
+  }
 
   render() {
     // If selected movie is still loading
@@ -131,6 +158,8 @@ class MovieDetailsPage extends Component {
         <NavLink to="/" className="home">
           <h3 aria-label="home">HOME</h3>
         </NavLink>
+        <CommentContainer movie={this.props.movie} removeComment= {this.removeComment} timeToUpdate={this.state.timeToUpdate} setTimeToUpdate={this.setTimeToUpdate} />
+        <CommentForm addComment= {this.addComment} movie= {this.props.movie} setTimeToUpdate= {this.setTimeToUpdate}/>
       </section>
     );
     // }
