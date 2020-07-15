@@ -4,7 +4,7 @@ import { deleteComment, getMovie, postUserMovieRating } from "../apiCalls";
 import { NavLink } from "react-router-dom";
 import CommentForm from "../CommentForm/CommentForm.js";
 import CommentContainer from "../CommentContainer/CommentContainer.js";
-
+import PropTypes from 'prop-types';
 
 class MovieDetailsPage extends Component {
   constructor(
@@ -167,3 +167,13 @@ class MovieDetailsPage extends Component {
 }
 
 export default MovieDetailsPage;
+
+MovieDetailsPage.propTypes = {
+  movie : PropTypes.object,
+  user : PropTypes.object,
+  submitUserMovieRating : PropTypes.func,
+  userRating : PropTypes.object,
+  getMovieData : PropTypes.func,
+  selectedMovie : PropTypes.object,
+  deleteRating : PropTypes.func
+}

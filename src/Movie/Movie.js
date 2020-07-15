@@ -1,5 +1,6 @@
 import React from "react";
 import "./Movie.css";
+import PropTypes from 'prop-types';
 
 const Movie = ({ movie, setID, id, loggedIn, rated }) => {
   // if user is not logged in
@@ -32,3 +33,13 @@ const Movie = ({ movie, setID, id, loggedIn, rated }) => {
 };
 
 export default Movie;
+
+Movie.propTypes = {
+  movie : PropTypes.object,
+  loggedIn : PropTypes.bool,
+  id : PropTypes.number,
+  setID : PropTypes.func,
+  getMovieData : PropTypes.func,
+  selectedMovie : PropTypes.object,
+  rated : PropTypes.number
+}

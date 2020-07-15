@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-// import PropTypes from 'prop-types';
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
-
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
 import {
   getUsersRatings,
@@ -238,8 +236,4 @@ class App extends Component {
 
 export default withRouter(App);
 
-// App.propTypes = {
-//   movies : PropTypes.array,
-//   button : PropTypes.bool,
-//   error : PropTypes.oneOf([null].isRequired)
-// }
+
