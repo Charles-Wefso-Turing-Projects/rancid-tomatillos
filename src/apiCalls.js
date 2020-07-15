@@ -1,7 +1,13 @@
 const url = "https://rancid-tomatillos.herokuapp.com/api/v2";
 
-export const postComment = async (comment) => {
-  
+export const deleteComment = async (id) => {
+  const response = await fetch(`http://localhost:3002/api/v1/movies/comments/${id}`, {
+    method: "DELETE" })
+    const data = await response;
+    return data
+}
+
+export const postComment = async (comment) => { 
   console.log(comment)
   const response = await fetch(`http://localhost:3002/api/v1/movies/comments`, {
     method: "POST",

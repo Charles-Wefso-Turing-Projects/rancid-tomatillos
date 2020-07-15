@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./MovieDetailsPage.css";
-import { postComment, getMovie, postUserMovieRating } from "../apiCalls";
+import { deleteComment, getMovie, postUserMovieRating } from "../apiCalls";
 import { NavLink } from "react-router-dom";
 import CommentForm from "../CommentForm/CommentForm.js";
 import CommentContainer from "../CommentContainer/CommentContainer.js";
@@ -69,6 +69,7 @@ class MovieDetailsPage extends Component {
   }
 
   removeComment = (id) => {
+    deleteComment(id)
     const comments = this.state.comments.filter(comment => id !== comment.id);
     this.setState({ comments });
   }
