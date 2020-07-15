@@ -1,4 +1,25 @@
 const url = "https://rancid-tomatillos.herokuapp.com/api/v2";
+const favUrl = "http://localhost:3002/users/favorites"
+
+export const deleteFavoriteMovie = async (userID, movieId) => {
+  const response = await fetch(`${favUrl}/${userID}/${movieId}`, {
+   method: "DELETE" })
+    const data = await response;
+    return data
+}
+
+export const fetchFavoriteMovies = (userID) => {
+  return fetch(`${favUrl}/${userID}`)
+  .then((res) => res.json())
+}
+
+export const postFavoriteMovie = (userID, movieID) => {
+  return fetch(`${favUrl}/${userID}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ movie_id : movieID }),
+  })
+}
 
 export const deleteUsersRating = async (userID, ratingID) => {
   const response = await fetch(`${url}/users/${userID}/ratings/${ratingID}`, {

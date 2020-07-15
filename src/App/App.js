@@ -2,13 +2,13 @@ import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
-
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
 import {
   getUsersRatings,
   callUserData,
   getAllMovies,
-  deleteUsersRating
+  deleteUsersRating,
+  getFavoriteMovies,
 } from "../apiCalls";
 import { Route, NavLink, withRouter } from "react-router-dom";
 
@@ -24,7 +24,7 @@ class App extends Component {
       loggedInUserData: {},
       selectedMovie: null,
       userRatings: null,
-      favoriteMovies: []
+      favoriteMovies: [],
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
@@ -47,42 +47,54 @@ class App extends Component {
   componentDidUpdate() {
     if (this.state.loggedIn === true) {
       this.loadUserRatings();
+      this.loadUsersFavoriteMovies();
     }
   }
 
-  //logged in methods
+  loadUsersFavoriteMovies = () => {
+    if (!this.state.favoriteMovies) {
+      fetchFavoriteMovies(this.state.loggedInUserData.user.id)
+        .then((result) => {
+          const userRatedMovies = this.addMovieRatings(result);
+          this.setState({
+            favoriteMovies: [...this.state.favoriteMovies, result],
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(`yo, this is wrong:  ${error}`);
+        });
+    }
+  };
 
-  // create delete post 
   deleteRating = (userID, movieID) => {
-    deleteUsersRating(userID, movieID)
-  }
-  
-// passed into movie details page
+    deleteUsersRating(userID, movieID);
+  };
 
   addMovieRatings = (userRatings) => {
     return this.state.movies.map((movie) => {
-      movie.rated = null
-      movie.rating_id = null
-      movie.user_id = null
+      movie.rated = null;
+      movie.rating_id = null;
+      movie.user_id = null;
       userRatings.ratings.forEach((userRating) => {
-        if(movie.id === userRating.movie_id){
-          movie.rated = userRating.rating
-          movie.rating_id =  userRating.id
-          movie.user_id = userRating.user_id
+        if (movie.id === userRating.movie_id) {
+          movie.rated = userRating.rating;
+          movie.rating_id = userRating.id;
+          movie.user_id = userRating.user_id;
         }
-      })
-      return movie
-    })
-  }
+      });
+      return movie;
+    });
+  };
 
   loadUserRatings = () => {
     getUsersRatings(this.state.loggedInUserData.user.id)
-      .then((result) => { 
-          const userRatedMovies = this.addMovieRatings(result)
-          this.setState({
-            userRatings : result,
-            movies : userRatedMovies
-          })
+      .then((result) => {
+        const userRatedMovies = this.addMovieRatings(result);
+        this.setState({
+          userRatings: result,
+          movies: userRatedMovies,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -115,8 +127,8 @@ class App extends Component {
       })
       .then(this.props.history.push("/"))
       .catch((error) => {
-        alert('Incorrect email or password.')
-        this.props.history.push("/login")
+        alert("Incorrect email or password.");
+        this.props.history.push("/login");
       });
   };
 

@@ -1,8 +1,22 @@
 import React from "react";
 import "./Movie.css";
 
-const Movie = ({ movie, setID, id, loggedIn, rated }) => {
+const Movie = ({
+  movie,
+  setID,
+  id,
+  loggedIn,
+  rated,
+  favorited,
+  removeFavoritedMovie,
+  addFavoriteMovie
+}) => {
   // if user is not logged in
+
+  clickHandler = () => {
+    favorited ? this.props.removeFavoritedMovie(userID, MovieID) : this.props.addFavoriteMovie(userID, MovieID)
+  };
+
   if (!loggedIn) {
     return (
       <section className="movie" id={id} onClick={setID}>
@@ -18,6 +32,22 @@ const Movie = ({ movie, setID, id, loggedIn, rated }) => {
   return (
     <section className="movie" id={id}>
       <h2>{movie.title} </h2>
+      {favorited ? (
+        <img
+          src={"../favorited.svg"}
+          alt="favorited"
+          className="heart-icon"
+          onClick={this.clickHandler}
+        />
+      ) : (
+        <img
+          src={"../favorite.svg"}
+          alt="unfavorited"
+          className="heart-icon"
+          onClick={this.clickHandler}
+        />
+      )}
+
       <img src={movie.poster_path} alt="poster" className="poster" />
       <h3 aria-label="average-rating">
         Average Rating: {movie.average_rating.toFixed(2)}
