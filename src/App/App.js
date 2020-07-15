@@ -75,7 +75,7 @@ class App extends Component {
   }
 
   loadUserRatings = () => {
-    if(!this.state.userRatings) {
+    // if(!this.state.userRatings) {
       getUsersRatings(this.state.loggedInUserData.user.id)
         .then((result) => { 
             const userRatedMovies = this.addMovieRatings(result)
@@ -88,7 +88,7 @@ class App extends Component {
           console.log(error);
           alert(`yo, this is wrong:  ${error}`);
         });
-    }
+    // }
   };
 
   setID = (e) => {

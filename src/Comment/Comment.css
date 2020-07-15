@@ -1,3 +1,17 @@
 .comment {
   background-color: white;
+  border: 3px black solid;
+  border-radius: 3px;
+  margin: 3px;
+}
+
+.comment h2 {
+  color: darkred;
+}
+
+.comment p {
+  color: black;
+  font-family: 'Abril Fatface';
+  text-shadow: none;
+  padding: 3px;
 }

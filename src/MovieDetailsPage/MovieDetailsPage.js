@@ -120,6 +120,8 @@ class MovieDetailsPage extends Component {
         className="movie-details-page"
         aria-label="image-of-movie"
       >
+      <section className= "movie-info-card">
+
         <h2>{this.props.movie.title}</h2>
         <h3>{this.state.selectedMovie.tagline}</h3>
         <p>{this.state.selectedMovie.overview}</p>
@@ -127,14 +129,10 @@ class MovieDetailsPage extends Component {
         <p>Average Rating: {this.props.movie.average_rating}</p>
         <p>Genres: {this.state.selectedMovie.genres.join(", ")}</p>
         <p>Runtime: {this.state.selectedMovie.runtime} minutes</p>
-        {/* <p>Budget: {this.state.selectedMovie.budget} dollars</p>
-        <p>Revenue: {this.state.selectedMovie.revenue} dollars</p> */}
-
 
         {this.props.movie.rated ? (
           <div>
             <p>Your Rating: {this.props.movie.rated}</p>
-            {/* connect passed in delete post via onSubmit */}
             <button onClick={ this.handleDeleteRating } aria-label="delete-rating" type="button" >Delete</button>
           </div>
         ) : (
@@ -155,6 +153,7 @@ class MovieDetailsPage extends Component {
             <input type="submit" value="Submit" onClick={this.handleSubmit} />
           </form>
         )}
+        </section>
         <NavLink to="/" className="home">
           <h3 aria-label="home">HOME</h3>
         </NavLink>

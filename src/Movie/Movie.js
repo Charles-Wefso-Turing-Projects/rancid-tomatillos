@@ -17,7 +17,7 @@ const Movie = ({ movie, setID, id, loggedIn, rated }) => {
 
   return (
     <section className="movie" id={id}>
-      <h2>{movie.title} </h2>
+      <h3>{movie.title} </h3>
       <img src={movie.poster_path} alt="poster" className="poster" />
       <h3 aria-label="average-rating">
         Average Rating: {movie.average_rating.toFixed(2)}

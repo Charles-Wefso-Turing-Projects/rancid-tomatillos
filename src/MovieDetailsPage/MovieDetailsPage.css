@@ -9,3 +9,21 @@
   justify-content: center;
 }
 
+.movie-details-page h3 {
+  color: darkred;
+  font-size: xx-large;
+}
+
+.movie-info-card h3 {
+  color: white;
+  font-size: xx-large;
+}
+
+.movie-info-card {
+  background-color: rgb(39, 39, 39, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: white;
+}

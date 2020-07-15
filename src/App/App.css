@@ -15,16 +15,16 @@
 .navBar h2 {
   font-size: 5em;
   color: darkred;
-  font-family: 'Creepster', cursive;
+  font-family: 'Creepster';
   height: 1vh;
   align-self: center;
 }
 
-.navBar .nav-bar h3 {
+.navBar .nav-bar h3, h1 {
   height: fit-content;
-  background-color: rgba(245, 245, 245, 0.4);
-  width: fit-content;
+  width: 100%;
   border-radius: 3px;
   color: white;
+  font-family: 'Abril Fatface';
 }
 
