@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
-
 import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
 import {
   getUsersRatings,
@@ -229,4 +228,3 @@ class App extends Component {
 }
 
 export default withRouter(App);
-

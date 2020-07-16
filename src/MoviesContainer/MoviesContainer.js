@@ -2,6 +2,8 @@ import React from "react";
 import Movie from "../Movie/Movie.js";
 import "./MoviesContainer.css";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
+
 
 const MoviesContainer = ({
   movies,
@@ -61,3 +63,8 @@ const MoviesContainer = ({
   }
 
 export default MoviesContainer;
+
+MoviesContainer.propTypes = {
+  movies : PropTypes.array,
+  loggedIn : PropTypes.bool
+}

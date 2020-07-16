@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import "./LoginForm.css";
+import PropTypes from 'prop-types';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class LoginForm extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     await this.props.getUserData(this.state.email, this.state.password);
+    this.resetForm();
   };
 
   render() {
@@ -63,3 +65,8 @@ class LoginForm extends Component {
 }
 
 export default LoginForm;
+
+LoginForm.propTypes = {
+  loggedInUserData: PropTypes.object,
+  getUserData: PropTypes.func 
+}

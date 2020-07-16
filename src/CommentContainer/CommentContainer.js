@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Comment from "../Comment/Comment.js";
 import { getComments } from "../apiCalls";
+import PropTypes from 'prop-types';
 
 class CommentContainer extends Component  {
   constructor(){
@@ -51,3 +52,10 @@ class CommentContainer extends Component  {
 
 
 export default CommentContainer;
+
+CommentContainer.propTypes = {
+  movie : PropTypes.object,
+  removeComment : PropTypes.func,
+  setTimeToUpdate : PropTypes.func,
+  timeToUpdate : PropTypes.bool
+}
