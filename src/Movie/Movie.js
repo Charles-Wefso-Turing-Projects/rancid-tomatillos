@@ -9,13 +9,15 @@ const Movie = ({
   rated,
   favorited,
   removeFavoritedMovie,
-  addFavoriteMovie
+  addFavoriteMovie,
+  
 }) => {
+  const clickHandler = () => {
+    favorited
+      ? removeFavoritedMovie(movie.user_id, id)
+      : addFavoriteMovie(movie.user_id, id);
+  }
   // if user is not logged in
-
-  clickHandler = () => {
-    favorited ? this.props.removeFavoritedMovie(userID, MovieID) : this.props.addFavoriteMovie(userID, MovieID)
-  };
 
   if (!loggedIn) {
     return (
@@ -28,7 +30,6 @@ const Movie = ({
       </section>
     );
   }
-
   return (
     <section className="movie" id={id}>
       <h2>{movie.title} </h2>
@@ -37,14 +38,14 @@ const Movie = ({
           src={"../favorited.svg"}
           alt="favorited"
           className="heart-icon"
-          onClick={this.clickHandler}
+          onClick={clickHandler}
         />
       ) : (
         <img
           src={"../favorite.svg"}
           alt="unfavorited"
           className="heart-icon"
-          onClick={this.clickHandler}
+          onClick={clickHandler}
         />
       )}
 

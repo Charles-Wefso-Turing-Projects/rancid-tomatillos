@@ -8,7 +8,7 @@ import {
   callUserData,
   getAllMovies,
   deleteUsersRating,
-  getFavoriteMovies,
+  fetchFavoriteMovies
 } from "../apiCalls";
 import { Route, NavLink, withRouter } from "react-router-dom";
 
@@ -24,7 +24,7 @@ class App extends Component {
       loggedInUserData: {},
       selectedMovie: null,
       userRatings: null,
-      favoriteMovies: [],
+      favoriteMovies: null,
     };
     this.url = "https://rancid-tomatillos.herokuapp.com/api/v2";
   }
@@ -53,11 +53,11 @@ class App extends Component {
 
   loadUsersFavoriteMovies = () => {
     if (!this.state.favoriteMovies) {
+      // console.log(this.state.loggedInUserData.user.id);
       fetchFavoriteMovies(this.state.loggedInUserData.user.id)
         .then((result) => {
-          const userRatedMovies = this.addMovieRatings(result);
           this.setState({
-            favoriteMovies: [...this.state.favoriteMovies, result],
+            favoriteMovies: result,
           });
         })
         .catch((error) => {
@@ -88,18 +88,20 @@ class App extends Component {
   };
 
   loadUserRatings = () => {
-    getUsersRatings(this.state.loggedInUserData.user.id)
-      .then((result) => {
-        const userRatedMovies = this.addMovieRatings(result);
-        this.setState({
-          userRatings: result,
-          movies: userRatedMovies,
+    if(!this.state.userRatings) {
+      getUsersRatings(this.state.loggedInUserData.user.id)
+        .then((result) => { 
+            const userRatedMovies = this.addMovieRatings(result)
+            this.setState({
+              userRatings : result,
+              movies : userRatedMovies
+            })
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(`yo, this is wrong:  ${error}`);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(`yo, this is wrong:  ${error}`);
-      });
+    }
   };
 
   setID = (e) => {
@@ -140,6 +142,7 @@ class App extends Component {
       loggedIn,
       setID,
       loggedInUserData,
+      favoriteMovies
     } = this.state;
     // conditionally redirect to error
     if (error) {
@@ -208,6 +211,7 @@ class App extends Component {
                 getMovieData={this.getMovieData}
                 loggedIn={loggedIn}
                 userRatings={userRatings}
+                favoriteMovies={favoriteMovies}
               />
             </main>
           )}

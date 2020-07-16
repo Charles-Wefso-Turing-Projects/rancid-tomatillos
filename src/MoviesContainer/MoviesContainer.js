@@ -2,53 +2,60 @@ import React from "react";
 import Movie from "../Movie/Movie.js";
 import "./MoviesContainer.css";
 import { Link } from "react-router-dom";
-import { deleteFavoriteMovie,
-  postFavoriteMovie } from "../apiCalls"
+import { deleteFavoriteMovie, postFavoriteMovie } from "../apiCalls";
 
 const MoviesContainer = ({
   movies,
   setID,
   getMovieData,
   loggedIn,
-  favoriteMovies
+  favoriteMovies,
 }) => {
-
-  addFavoriteMovie = (userID, MovieID) => {
-    postFavoriteMovie(userID, MovieID)
-  }
-
-  removeFavoritedMovie = (userID, movieID) => {
-    deleteFavoriteMovie(userID, movieID);
+  const addFavoriteMovie = (userID, MovieID) => {
+    postFavoriteMovie(userID, MovieID);
   };
 
-
-  const movieCards = movies.map((movie) => (
-    <Link
-    to={`/${movie.id}`}
-    aria-label="movie"
-    key={movie.id}
-    style={{ textDecoration: "none", color: "black" }}
-    >
+  const removeFavoritedMovie = (userID, movieID) => {
+    deleteFavoriteMovie(userID, movieID);
+  };
+  
+  const movieCards = movies.map((movie) => {
+    let favorited = false;
+    if(loggedIn && favoriteMovies) {
+      favoriteMovies.forEach((movieFavorite) => {
+        if (Number(movieFavorite.movie_id) === movie.id) {
+          favorited = true;
+        }
+      });
+    }
+    
+    return (
+      <Link
+        to={`/${movie.id}`}
+        aria-label="movie"
+        key={movie.id}
+        style={{ textDecoration: "none", color: "black" }}
+      >
         <Movie
           movie={movie}
           id={movie.id}
           key={movie.id}
           setID={setID}
           getMovieData={getMovieData}
-          favorited={this.props.favoriteMovies.includes(movie.id)}
+          favorited={favorited}
           loggedIn={loggedIn}
           rated={movie.rated}
-          addFavoriteMovie = {this.addFavoriteMovie}
-          removeFavoritedMovie= {this.removeFavoritedMovie}
-          />
+          addFavoriteMovie={addFavoriteMovie}
+          removeFavoritedMovie={removeFavoritedMovie}
+        />
       </Link>
-    ));
-    
-    return (
-      <section aria-label="all-movies" className="allMovies">
-        {movieCards}
-      </section>
     );
-  }
+  });
+  return (
+    <section aria-label="all-movies" className="allMovies">
+      {movieCards}
+    </section>
+  );
+};
 
 export default MoviesContainer;

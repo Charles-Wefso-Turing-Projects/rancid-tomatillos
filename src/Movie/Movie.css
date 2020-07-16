@@ -6,3 +6,7 @@
 .movie h2 {
   font-size: larger;
 }
+
+img .heart-icon {
+  height: 1px;
+}
