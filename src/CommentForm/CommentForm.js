@@ -40,14 +40,14 @@ class CommentForm extends Component {
         <form aria-label="new-comment-form" className="new-comment-form" onSubmit = {this.handleSubmit}>
           <input
             type="text"
-            className="author-input"
+            name="author"
             value={author}
             placeholder="author"
             onChange = {this.handleChange}
           />
           <input 
             type="text"
-            className="comment-input"
+            name="comment"
             value={comment}
             placeholder="comment"
             onChange= {this.handleChange}
