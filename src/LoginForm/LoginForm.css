@@ -4,6 +4,9 @@
   align-items: center;
   background-color: black;
   color: white;
+  font-family: 'Abril Fatface';
+  height: 100vh;
+  justify-content: center;
 }
 
 form {

@@ -101,6 +101,8 @@ class MovieDetailsPage extends Component {
         className="movie-details-page"
         aria-label="image-of-movie"
       >
+      <section className= "movie-info-card">
+
         <h2>{this.props.movie.title}</h2>
         <h3>{this.state.selectedMovie.tagline}</h3>
         <p>{this.state.selectedMovie.overview}</p>
@@ -132,6 +134,7 @@ class MovieDetailsPage extends Component {
             <input type="submit" value="Submit" onClick={this.handleSubmit} />
           </form>
         )}
+        </section>
         <NavLink to="/" className="home">
           <h3 aria-label="home">HOME</h3>
         </NavLink>
