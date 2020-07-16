@@ -19,7 +19,6 @@ class CommentContainer extends Component  {
     if(!this.props.timeToUpdate) {
       return 
     }
-
     this.getData()
   }
   

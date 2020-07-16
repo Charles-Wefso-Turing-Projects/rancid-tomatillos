@@ -3,7 +3,6 @@ import "./Movie.css";
 import PropTypes from 'prop-types';
 
 const Movie = ({ movie, setID, id, loggedIn, rated }) => {
-  // if user is not logged in
   if (!loggedIn) {
     return (
       <section className="movie" id={id} onClick={setID}>
