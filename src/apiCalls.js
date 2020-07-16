@@ -48,7 +48,6 @@ export const postUserMovieRating = (id, userRating, movieId) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ movie_id: Number(movieId), rating: Number(userRating) }),
   })
-  // .then(response => console.log(response.ok))
   .then((response) => {
     if (response.ok) {
       return response.json();

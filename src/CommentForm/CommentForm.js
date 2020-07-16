@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { postComment } from "../apiCalls";
 import "./CommentForm.css";
+import PropTypes from 'prop-types';
 
 class CommentForm extends Component {
   constructor(props) {
@@ -60,3 +61,9 @@ class CommentForm extends Component {
 }
 
 export default CommentForm
+
+CommentForm.propTypes = {
+  movie : PropTypes.object,
+  addComment : PropTypes.func,
+  setTimeToUpdate : PropTypes.func
+}

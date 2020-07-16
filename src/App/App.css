@@ -1,23 +1,23 @@
 .App {
-  text-align: center;
-  height: 100vh;
-  width: 100%;
   background-color: black;
   color: white;
+  height: 100vh;
+  text-align: center;
+  width: 100%;
 }
 
 .navBar {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .navBar h2 {
-  font-size: 5em;
-  color: darkred;
-  font-family: 'Creepster';
-  height: 1vh;
   align-self: center;
+  color: darkred;
+  font-family: 'Creepster', cursive;
+  font-size: 5em;
+  height: 1vh;
 }
 
 .navBar .nav-bar h3, h1 {

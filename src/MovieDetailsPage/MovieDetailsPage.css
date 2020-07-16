@@ -26,4 +26,7 @@
   align-items: center;
   width: 100%;
   color: white;
+
+.movie-details-page p {
+  font-size: large;
 }
