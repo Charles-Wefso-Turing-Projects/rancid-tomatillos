@@ -26,9 +26,6 @@ class LoginForm extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     await this.props.getUserData(this.state.email, this.state.password);
-    // this.resetForm isn't working as expected - submit button if incorrect
-    // pushes us to the main unlogged user page.
-    // this.resetForm();
   };
 
   render() {

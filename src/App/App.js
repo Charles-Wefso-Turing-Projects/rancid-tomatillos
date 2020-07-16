@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import PropTypes from 'prop-types';
 import MoviesContainer from "../MoviesContainer/MoviesContainer.js";
 import LoginForm from "../LoginForm/LoginForm.js";
 
@@ -49,14 +48,9 @@ class App extends Component {
         }
   }
 
-  //logged in methods
-
-  // create delete post 
   deleteRating = (userID, movieID) => {
     deleteUsersRating(userID, movieID)
   }
-  
-// passed into movie details page
 
   addMovieRatings = (userRatings) => {
     return this.state.movies.map((movie) => {
@@ -96,14 +90,12 @@ class App extends Component {
     this.getMovieData(id);
   };
 
-  // is setting to false but not rerendering the page
+
   logOutUser = () => {
     this.setState({
       loggedIn: false,
     });
   };
-
-  //main page methods
 
   getUserData = (loginEmail, loginPassword) => {
     callUserData(loginEmail, loginPassword)
@@ -130,7 +122,7 @@ class App extends Component {
       setID,
       loggedInUserData,
     } = this.state;
-    // conditionally redirect to error
+
     if (error) {
       return (
         <section className="error">
@@ -138,7 +130,7 @@ class App extends Component {
         </section>
       );
     }
-    // conditionally redirect to LoggedInUser
+
     if (!loggedIn) {
       return (
         <main aria-label="App" className="App">
@@ -238,8 +230,3 @@ class App extends Component {
 
 export default withRouter(App);
 
-// App.propTypes = {
-//   movies : PropTypes.array,
-//   button : PropTypes.bool,
-//   error : PropTypes.oneOf([null].isRequired)
-// }

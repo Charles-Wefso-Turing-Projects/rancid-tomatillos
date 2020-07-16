@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Comment from "../Comment/Comment.js";
-import { render } from 'enzyme';
 import { getComments } from "../apiCalls";
 
 class CommentContainer extends Component  {
@@ -19,7 +18,6 @@ class CommentContainer extends Component  {
     if(!this.props.timeToUpdate) {
       return 
     }
-
     this.getData()
   }
   

@@ -7,26 +7,8 @@ import CommentContainer from "../CommentContainer/CommentContainer.js";
 
 
 class MovieDetailsPage extends Component {
-  constructor(
-    movie,
-    isRated,
-    user,
-    submitUserMovieRating,
-    userRatings,
-    getMovieData,
-    selectedMovie,
-    deleteRating
-  ) {
-    super(
-      movie,
-      isRated,
-      user,
-      submitUserMovieRating,
-      userRatings,
-      getMovieData,
-      selectedMovie,
-      deleteRating
-    );
+  constructor() {
+    super();
     this.state = {
       selectedValue: "",
       selectedMovie: null,
@@ -105,7 +87,6 @@ class MovieDetailsPage extends Component {
   }
 
   render() {
-    // If selected movie is still loading
     if (this.state.selectedMovie === null) {
       return (
         <section>
@@ -113,7 +94,7 @@ class MovieDetailsPage extends Component {
         </section>
       );
     }
-    // props.movie.rated
+
     return (
       <section
         style={{ backgroundImage: `url(${this.props.movie.backdrop_path})` }}
@@ -127,14 +108,10 @@ class MovieDetailsPage extends Component {
         <p>Average Rating: {this.props.movie.average_rating}</p>
         <p>Genres: {this.state.selectedMovie.genres.join(", ")}</p>
         <p>Runtime: {this.state.selectedMovie.runtime} minutes</p>
-        {/* <p>Budget: {this.state.selectedMovie.budget} dollars</p>
-        <p>Revenue: {this.state.selectedMovie.revenue} dollars</p> */}
-
 
         {this.props.movie.rated ? (
           <div>
             <p>Your Rating: {this.props.movie.rated}</p>
-            {/* connect passed in delete post via onSubmit */}
             <button onClick={ this.handleDeleteRating } aria-label="delete-rating" type="button" >Delete</button>
           </div>
         ) : (
